@@ -4,7 +4,8 @@
       "WebFetch(domain:api.anthropic.com)",
       "Read(//d//**)",
       "PowerShell(Get-ChildItem \"D:\\\\My Portfolio\" -Recurse -Depth 3 | Where-Object { !$_.PSIsContainer } | Select-Object FullName | Format-Table -AutoSize)",
-      "PowerShell(Get-ChildItem \"D:\\\\My Portfolio\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object -ExpandProperty FullName; Write-Host \"---COMPONENTS---\"; Get-ChildItem \"D:\\\\My Portfolio\\\\components\" | Select-Object -ExpandProperty Name)"
+      "PowerShell(Get-ChildItem \"D:\\\\My Portfolio\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object -ExpandProperty FullName; Write-Host \"---COMPONENTS---\"; Get-ChildItem \"D:\\\\My Portfolio\\\\components\" | Select-Object -ExpandProperty Name)",
+      "Bash(npm run *)"
     ],
     "additionalDirectories": [
       "D:\\my-portfolio"

@@ -48,3 +48,17 @@ h1, h2, h3, h4 {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* Hero corner bracket marks */
+.en-hero::before,
+.en-hero::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--accent);
+  position: absolute;
+}
+.en-hero::before { top: 24px; left: 24px; }
+.en-hero::after  { bottom: 24px; right: 24px; }
+
+/* Responsive overrides now handled via Tailwind responsive prefixes */

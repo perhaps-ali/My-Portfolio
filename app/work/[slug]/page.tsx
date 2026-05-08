@@ -36,126 +36,49 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
 
   return (
     <div>
-      {/* Hero */}
-      <section
-        className="grid-bg"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1.4fr',
-          gap: 48,
-          alignItems: 'end',
-          padding: '60px 32px',
-          borderBottom: '1px solid var(--line)',
-        }}
-      >
+      {/* Hero — mobile: 1 col. lg+: 2-col side by side */}
+      <section className="grid-bg grid grid-cols-1 lg:grid-cols-case-hero gap-8 lg:gap-12 items-end px-5 md:px-8 py-12 md:py-[60px] border-b border-line">
         <div>
-          <div style={{
-            fontSize: 11,
-            textTransform: 'uppercase',
-            letterSpacing: '0.12em',
-            color: 'var(--ink-mute)',
-            marginBottom: 16,
-          }}>
-            // work / {project.year} /{' '}
-            <span style={{ color: 'var(--accent)' }}>{params.slug}</span>
+          <div className="text-11 uppercase tracking-012 text-ink-mute mb-4">
+            {'// work'} / {project.year} / <span className="text-accent">{params.slug}</span>
           </div>
-          <h1 style={{
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 'clamp(60px, 8vw, 108px)',
-            lineHeight: 0.92,
-            letterSpacing: '-0.02em',
-            marginBottom: 14,
-            color: 'var(--ink)',
-          }}>
+          <h1
+            className="font-display italic leading-092 tracking-tighter mb-[14px] text-ink"
+            style={{ fontSize: 'clamp(48px, 8vw, 108px)' }}
+          >
             {project.title}.
           </h1>
-          <p style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 22,
-            maxWidth: 520,
-            color: 'var(--ink-mute)',
-          }}>
-            {project.tagline}
-          </p>
+          <p className="font-display text-18 md:text-22 max-w-520 text-ink-mute">{project.tagline}</p>
         </div>
-        {/* Cover frame */}
-        <div style={{
-          height: 480,
-          border: '1px solid var(--line-strong)',
-          background: 'var(--bg-soft)',
-          padding: 14,
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            paddingBottom: 10,
-            borderBottom: '1px solid var(--line)',
-            marginBottom: 10,
-            fontSize: 10,
-            letterSpacing: '0.1em',
-            color: 'var(--ink-mute)',
-          }}>
-            {[0,1,2].map((c) => (
-              <span key={c} style={{ width: 8, height: 8, borderRadius: '50%', border: '1px solid var(--line-strong)', display: 'inline-block' }} />
+
+        {/* Cover frame — on mobile sits below text at reduced height */}
+        <div className="h-64 lg:h-120 border border-line-strong bg-bg-soft p-[14px] flex flex-col">
+          <div className="flex items-center gap-2 pb-[10px] border-b border-line mb-[10px] text-10 tracking-01 text-ink-mute">
+            {[0, 1, 2].map((c) => (
+              <span key={c} className="w-2 h-2 rounded-full border border-line-strong inline-block" />
             ))}
-            <span style={{ marginLeft: 'auto' }}>{params.slug}.muhammadali.dev</span>
+            <span className="ml-auto">{params.slug}.muhammadali.dev</span>
           </div>
-          <div style={{
-            flex: 1,
-            background: 'var(--bg)',
-            border: '1px solid var(--line)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--ink-mute)',
-            fontSize: 11,
-            letterSpacing: '0.12em',
-          }}>
+          <div className="flex-1 bg-bg border border-line flex items-center justify-center text-ink-mute text-11 tracking-012">
             [ cover image ]
           </div>
         </div>
       </section>
 
-      {/* Overview */}
-      <section style={{ padding: '80px 32px' }}>
+      {/* Overview — mobile: 1 col. md+: 3 col */}
+      <section className="px-5 md:px-8 py-14 md:py-20">
         <SectionHeader module="// overview" title="The brief." meta="03 lenses" />
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 1,
-          background: 'var(--line)',
-          border: '1px solid var(--line)',
-        }}>
+        <div className="grid grid-cols-1 md:grid-cols-3-even gap-px bg-line border border-line">
           {[
             { label: 'Problem', text: 'Existing DB tooling is bloated for analysts or too thin for backend engineers shipping at speed.' },
-            { label: 'Role', text: 'Lead engineer. Architecture, frontend system, query engine, performance.' },
-            { label: 'Stack', text: project.stack.join(' · ') },
+            { label: 'Role',    text: 'Lead engineer. Architecture, frontend system, query engine, performance.' },
+            { label: 'Stack',   text: project.stack.join(' · ') },
           ].map((cell) => (
-            <div key={cell.label} style={{ background: 'var(--bg)', padding: 32 }}>
-              <h4 style={{
-                fontFamily: 'var(--font-mono)',
-                fontStyle: 'normal',
-                fontSize: 11,
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: 'var(--accent)',
-                marginBottom: 14,
-              }}>
+            <div key={cell.label} className="bg-bg p-6 md:p-8">
+              <h4 className="font-mono not-italic text-11 tracking-018 uppercase text-accent mb-[14px]">
                 {cell.label}
               </h4>
-              <p style={{
-                fontFamily: 'var(--font-display)',
-                fontStyle: 'italic',
-                fontSize: 20,
-                lineHeight: 1.45,
-                color: 'var(--ink)',
-              }}>
-                {cell.text}
-              </p>
+              <p className="font-display italic text-18 md:text-20 leading-145 text-ink">{cell.text}</p>
             </div>
           ))}
         </div>
@@ -163,20 +86,22 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
 
       {isDataDash && (
         <>
-          {/* Architecture */}
-          <section style={{ padding: '80px 32px' }}>
+          {/* Architecture diagram — scrollable on mobile */}
+          <section className="px-5 md:px-8 py-14 md:py-20">
             <SectionHeader module="// architecture" title="System topology." meta="fig.02" />
-            <ArchDiagram />
+            <div className="overflow-x-auto">
+              <div className="min-w-[700px]">
+                <ArchDiagram />
+              </div>
+            </div>
           </section>
 
-          {/* Process */}
-          <section style={{ padding: '80px 32px' }}>
+          <section className="px-5 md:px-8 py-14 md:py-20">
             <SectionHeader module="// process" title="How it happened." meta="03 steps" />
             <ProcessGrid />
           </section>
 
-          {/* Results */}
-          <section style={{ padding: '80px 32px' }}>
+          <section className="px-5 md:px-8 py-14 md:py-20">
             <SectionHeader module="// results" title="What shipped." meta="04 metrics" />
             <MetricsGrid />
           </section>
@@ -184,50 +109,14 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
       )}
 
       {/* Prev / Next */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '60px 32px',
-        borderTop: '1px solid var(--line)',
-      }}>
-        <Link href="/work/wecare" style={{ color: 'var(--ink)' }}>
-          <small style={{
-            fontSize: 10,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: 'var(--ink-mute)',
-            display: 'block',
-            marginBottom: 6,
-          }}>
-            ← prev / 02
-          </small>
-          <span style={{
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 32,
-          }}>
-            NICGS
-          </span>
+      <div className="flex justify-between items-center px-5 md:px-8 py-12 md:py-[60px] border-t border-line">
+        <Link href="/work/wecare" className="text-ink">
+          <small className="text-10 tracking-018 uppercase text-ink-mute block mb-[6px]">← prev / 02</small>
+          <span className="font-display italic text-24 md:text-32">NICGS</span>
         </Link>
-        <Link href="/work/sba-loans" style={{ color: 'var(--ink)', textAlign: 'right' }}>
-          <small style={{
-            fontSize: 10,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: 'var(--ink-mute)',
-            display: 'block',
-            marginBottom: 6,
-          }}>
-            next / 04 →
-          </small>
-          <span style={{
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 32,
-          }}>
-            Swerv Automotive
-          </span>
+        <Link href="/work/sba-loans" className="text-ink text-right">
+          <small className="text-10 tracking-018 uppercase text-ink-mute block mb-[6px]">next / 04 →</small>
+          <span className="font-display italic text-24 md:text-32">Swerv Automotive</span>
         </Link>
       </div>
 

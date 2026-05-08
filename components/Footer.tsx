@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 const contacts = [
   { label: 'Email',   value: 'hello@muhammadali.dev' },
   { label: 'Github',  value: 'github.com/muhammadali' },
@@ -10,55 +8,23 @@ const contacts = [
 
 export default function Footer() {
   return (
-    <footer style={{
-      display: 'grid',
-      gridTemplateColumns: '1.5fr 1fr',
-      gap: 60,
-      padding: '80px 32px',
-      borderTop: '1px solid var(--line)',
-    }}>
-      <h2 style={{
-        fontFamily: 'var(--font-display)',
-        fontStyle: 'italic',
-        fontSize: 'clamp(60px, 8vw, 120px)',
-        lineHeight: 0.92,
-        letterSpacing: '-0.02em',
-        color: 'var(--ink)',
-      }}>
+    /* Mobile: 1 col. md+: 2-col asymmetric */
+    <footer className="grid grid-cols-1 md:grid-cols-footer gap-10 md:gap-[60px] px-5 md:px-8 py-16 md:py-20 border-t border-line">
+      <h2
+        className="font-display italic leading-092 tracking-tighter text-ink"
+        style={{ fontSize: 'clamp(48px, 8vw, 120px)' }}
+      >
         Let&apos;s build<br />
-        something <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>real.</em>
+        something <em className="text-accent italic">real.</em>
       </h2>
-      <dl style={{
-        display: 'grid',
-        gap: 8,
-        alignContent: 'end',
-        fontSize: 11,
-      }}>
+      <dl className="grid gap-2 content-end text-11">
         {contacts.map((c) => (
-          <div key={c.label} style={{
-            display: 'grid',
-            gridTemplateColumns: '80px 1fr',
-            padding: '8px 0',
-            borderBottom: '1px solid var(--line)',
-          }}>
-            <dt style={{
-              fontSize: 11,
-              color: 'var(--ink-mute)',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-            }}>
-              {c.label}
-            </dt>
-            <dd style={{ margin: 0, color: 'var(--ink)' }}>{c.value}</dd>
+          <div key={c.label} className="grid grid-cols-contact py-2 border-b border-line">
+            <dt className="text-11 text-ink-mute tracking-015 uppercase">{c.label}</dt>
+            <dd className="m-0 text-ink">{c.value}</dd>
           </div>
         ))}
       </dl>
-
-      <style>{`
-        @media (max-width: 768px) {
-          footer { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </footer>
   )
 }

@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 import Footer from '@/components/Footer'
 
 const allProjects = [
-  { slug: 'datadash',  title: 'DataDash',      year: '2025', idx: '01', desc: 'High-performance database management interface built for stability, speed, and developer efficiency.' },
-  { slug: 'wecare',    title: 'WeCare',         year: '2024', idx: '02', desc: 'Catering reservations — menu, orders, payments.' },
-  { slug: 'sba-loans', title: 'SBa Loans',      year: '2024', idx: '03', desc: 'Loan applications & approval workflow.' },
+  { slug: 'datadash',  title: 'DataDash',  year: '2025', idx: '01', desc: 'High-performance database management interface built for stability, speed, and developer efficiency.' },
+  { slug: 'wecare',    title: 'WeCare',    year: '2024', idx: '02', desc: 'Catering reservations — menu, orders, payments.' },
+  { slug: 'sba-loans', title: 'SBa Loans', year: '2024', idx: '03', desc: 'Loan applications & approval workflow.' },
 ]
 
 export default function WorkPage() {
@@ -16,54 +16,33 @@ export default function WorkPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
-      <section style={{ padding: '80px 32px', borderBottom: '1px solid var(--line)' }}>
-        <h1 style={{
-          fontFamily: 'var(--font-display)',
-          fontStyle: 'italic',
-          fontSize: 'clamp(60px, 10vw, 108px)',
-          lineHeight: 0.92,
-          letterSpacing: '-0.02em',
-          marginBottom: 60,
-        }}>
+      <section className="px-5 md:px-8 py-14 md:py-20 border-b border-line">
+        <h1
+          className="font-display italic leading-092 tracking-tighter mb-10 md:mb-[60px] text-ink"
+          style={{ fontSize: 'clamp(52px, 10vw, 108px)' }}
+        >
           Work.
         </h1>
         <div>
-          {allProjects.map((p, i) => (
+          {allProjects.map((p) => (
             <motion.div
               key={p.slug}
               whileHover={{ backgroundColor: 'var(--fill-2)' }}
               transition={{ duration: 0.15 }}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '80px 1fr auto',
-                gap: 24,
-                padding: '20px 0',
-                borderTop: '1px solid var(--line)',
-                alignItems: 'baseline',
-              }}
+              /* Mobile: 2-col (year + content), no CTA column. md+: 3-col */
+              className="grid grid-cols-[60px_1fr] md:grid-cols-work-row gap-4 md:gap-6 py-5 border-t border-line items-baseline"
             >
-              <span style={{ fontSize: 11, color: 'var(--ink-mute)', letterSpacing: '0.1em' }}>
-                {p.year} · {p.idx}
-              </span>
+              <span className="text-11 text-ink-mute tracking-01">{p.year}<span className="hidden md:inline"> · {p.idx}</span></span>
               <div>
-                <div style={{
-                  fontFamily: 'var(--font-display)',
-                  fontStyle: 'italic',
-                  fontSize: 36,
-                  color: 'var(--ink)',
-                  lineHeight: 1,
-                  marginBottom: 4,
-                }}>
-                  {p.title}
-                </div>
-                <div style={{ fontSize: 13, color: 'var(--ink-mute)' }}>{p.desc}</div>
+                <div className="font-display italic text-28 md:text-36 text-ink leading-none mb-1">{p.title}</div>
+                <div className="text-13 text-ink-mute">{p.desc}</div>
+                {/* CTA inline on mobile */}
+                <Link href={`/work/${p.slug}`} className="md:hidden text-accent text-10 uppercase tracking-016 mt-2 inline-block">
+                  View →
+                </Link>
               </div>
-              <Link href={`/work/${p.slug}`} style={{
-                color: 'var(--accent)',
-                fontSize: 10,
-                textTransform: 'uppercase',
-                letterSpacing: '0.16em',
-              }}>
+              {/* CTA in own column on desktop */}
+              <Link href={`/work/${p.slug}`} className="hidden md:block text-accent text-10 uppercase tracking-016">
                 View →
               </Link>
             </motion.div>

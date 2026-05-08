@@ -2,48 +2,26 @@
 import { motion } from 'framer-motion'
 
 const cells = [
-  { label: 'FRONTEND', sub: 'react · ts · ssr', accent: true },
-  { label: 'EDGE',     sub: 'workers · auth',   accent: false },
-  { label: 'API',      sub: 'node · trpc · ws',  accent: false },
-  { label: 'DATA',     sub: 'postgres · redis',  accent: false },
-  { label: 'AI',       sub: 'openai · rag · agents', accent: true },
+  { label: 'FRONTEND', sub: 'react · ts · ssr',      accent: true  },
+  { label: 'EDGE',     sub: 'workers · auth',         accent: false },
+  { label: 'API',      sub: 'node · trpc · ws',       accent: false },
+  { label: 'DATA',     sub: 'postgres · redis',       accent: false },
+  { label: 'AI',       sub: 'openai · rag · agents',  accent: true  },
 ]
 
 export default function SchematicStrip() {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(5, 1fr)',
-      gap: 1,
-      background: 'var(--line)',
-      border: '1px dashed var(--line-strong)',
-      padding: 12,
-      height: 140,
-      marginTop: 48,
-    }}>
+    /* Mobile: 3+2 wrap. sm+: all 5 in one row */
+    <div className="grid grid-cols-3 sm:grid-cols-5 gap-px bg-line border border-dashed border-line-strong p-3 h-auto sm:h-[140px] mt-12">
       {cells.map((c, i) => (
         <motion.div
           key={c.label}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1, duration: 0.4, ease: 'easeOut' }}
-          style={{
-            background: 'var(--bg-soft)',
-            padding: 10,
-            fontSize: 10,
-            color: 'var(--ink-mute)',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
+          className="bg-bg-soft p-[10px] text-10 text-ink-mute flex flex-col min-h-[80px] sm:min-h-0"
         >
-          <b style={{
-            fontSize: 11,
-            letterSpacing: '0.1em',
-            marginBottom: 4,
-            color: c.accent ? 'var(--accent)' : 'var(--ink-mute)',
-            fontWeight: 600,
-            display: 'block',
-          }}>
+          <b className={`text-11 tracking-01 mb-1 font-semibold block ${c.accent ? 'text-accent' : 'text-ink-mute'}`}>
             {c.label}
           </b>
           {c.sub}

@@ -1,70 +1,24 @@
-import Link from 'next/link'
-
 export default function BlogFeatured() {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      height: 380,
-      border: '1px solid var(--line-strong)',
-      background: 'var(--bg-soft)',
-      margin: '40px 32px',
-    }}>
-      <div style={{
-        padding: 36,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
+    /* Mobile: single column. md+: 2-col side-by-side */
+    <div className="grid grid-cols-1 md:grid-cols-2-even md:h-95 border border-line-strong bg-bg-soft mx-5 md:mx-8 my-10">
+      <div className="p-6 md:p-9 flex flex-col justify-between gap-4 md:gap-0">
         <div>
-          <div style={{
-            fontSize: 11,
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-            color: 'var(--accent)',
-            marginBottom: 8,
-          }}>
+          <div className="text-11 tracking-016 uppercase text-accent mb-2">
             ★ FEATURED · AI · 11 min
           </div>
-          <h3 style={{
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 48,
-            lineHeight: 1,
-            letterSpacing: '-0.02em',
-            margin: '14px 0',
-            color: 'var(--ink)',
-          }}>
+          <h3 className="font-display italic text-32 md:text-48 leading-none tracking-tighter text-ink my-[14px]">
             Building agent loops without losing the plot.
           </h3>
-          <p style={{
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 18,
-            color: 'var(--ink-mute)',
-          }}>
+          <p className="font-display italic text-18 text-ink-mute">
             Patterns I keep reaching for when the model plans, acts, then plans again.
           </p>
         </div>
-        <div style={{
-          fontSize: 11,
-          textTransform: 'uppercase',
-          letterSpacing: '0.14em',
-          color: 'var(--ink-mute)',
-        }}>
-          <b style={{ color: 'var(--ink)' }}>FEB 2026</b> · architecture · agents · diagrams
+        <div className="text-11 uppercase tracking-014 text-ink-mute">
+          <b className="text-ink">FEB 2026</b> · architecture · agents · diagrams
         </div>
       </div>
-      <div style={{
-        borderLeft: '1px solid var(--line)',
-        background: 'var(--bg)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--ink-mute)',
-        fontSize: 11,
-        letterSpacing: '0.12em',
-      }}>
+      <div className="border-t md:border-t-0 md:border-l border-line bg-bg flex items-center justify-center text-ink-mute text-11 tracking-012 h-40 md:h-auto">
         [ cover visual ]
       </div>
     </div>

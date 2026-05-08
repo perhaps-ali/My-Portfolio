@@ -24,90 +24,31 @@ export default function ProjectGrid() {
   const [featured, ...secondary] = projects
 
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '1.7fr 1fr',
-      gridTemplateRows: '1fr 1fr',
-      gap: 1,
-      background: 'var(--line)',
-      border: '1px solid var(--line)',
-      height: 680,
-    }}>
+    /* Mobile: single column stack. lg+: 2-col asymmetric grid with fixed height */
+    <div className="flex flex-col gap-px lg:grid lg:grid-cols-projects lg:grid-rows-2 bg-line border border-line lg:h-170">
+
       {/* Featured */}
       <motion.div
         whileHover={{ y: -2 }}
         transition={{ duration: 0.15 }}
-        style={{
-          gridRow: '1 / span 2',
-          background: 'var(--bg)',
-          padding: 36,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
+        className="lg:row-span-2 bg-bg p-6 md:p-9 flex flex-col"
       >
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: 10,
-          letterSpacing: '0.16em',
-          textTransform: 'uppercase',
-          color: 'var(--ink-mute)',
-          marginBottom: 16,
-        }}>
+        <div className="flex justify-between text-10 tracking-016 uppercase text-ink-mute mb-4">
           <span>★ FEATURED — {featured.year}</span>
-          <span style={{ color: 'var(--accent)' }}>{featured.version}</span>
+          <span className="text-accent">{featured.version}</span>
         </div>
-        <h4 style={{
-          fontFamily: 'var(--font-display)',
-          fontStyle: 'italic',
-          fontSize: 64,
-          color: 'var(--ink)',
-          lineHeight: 1,
-        }}>
-          {featured.title}
-        </h4>
-        <p style={{ fontSize: 13, color: 'var(--ink-mute)', marginTop: 12 }}>
-          {featured.desc}
-        </p>
-        <div style={{
-          margin: '24px 0',
-          flex: 1,
-          minHeight: 160,
-          background: 'var(--bg-soft)',
-          border: '1px solid var(--line)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'var(--ink-mute)',
-          fontSize: 11,
-          letterSpacing: '0.12em',
-        }}>
+        <h4 className="font-display italic text-40 md:text-64 text-ink leading-none">{featured.title}</h4>
+        <p className="text-13 text-ink-mute mt-3">{featured.desc}</p>
+        <div className="my-6 flex-1 min-h-40 bg-bg-soft border border-line flex items-center justify-center text-ink-mute text-11 tracking-012">
           [ cover image ]
         </div>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: 'auto',
-          paddingTop: 14,
-          borderTop: '1px solid var(--line)',
-        }}>
-          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        <div className="flex justify-between items-center mt-auto pt-[14px] border-t border-line">
+          <div className="flex gap-[6px] flex-wrap">
             {featured.stack.map((s) => (
-              <span key={s} style={{
-                fontSize: 10,
-                border: '1px solid var(--line)',
-                padding: '2px 7px',
-                color: 'var(--ink-mute)',
-              }}>{s}</span>
+              <span key={s} className="text-10 border border-line px-[7px] py-[2px] text-ink-mute">{s}</span>
             ))}
           </div>
-          <Link href={`/work/${featured.slug}`} style={{
-            color: 'var(--accent)',
-            fontSize: 11,
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-          }}>
+          <Link href={`/work/${featured.slug}`} className="text-accent text-11 tracking-016 uppercase shrink-0 ml-3">
             Case study →
           </Link>
         </div>
@@ -119,59 +60,21 @@ export default function ProjectGrid() {
           key={p.slug}
           whileHover={{ y: -2 }}
           transition={{ duration: 0.15 }}
-          style={{
-            background: 'var(--bg)',
-            padding: '28px 32px',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
+          className="bg-bg px-6 md:px-8 py-7 flex flex-col"
         >
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            fontSize: 10,
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-            color: 'var(--ink-mute)',
-            marginBottom: 12,
-          }}>
+          <div className="flex justify-between text-10 tracking-016 uppercase text-ink-mute mb-3">
             <span>{p.year}</span>
-            <span style={{ color: 'var(--accent)' }}>{p.status}</span>
+            <span className="text-accent">{p.status}</span>
           </div>
-          <h4 style={{
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 32,
-            color: 'var(--ink)',
-            marginBottom: 8,
-          }}>
-            {p.title}
-          </h4>
-          <p style={{ fontSize: 13, color: 'var(--ink-mute)' }}>{p.desc}</p>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 'auto',
-            paddingTop: 14,
-            borderTop: '1px solid var(--line)',
-          }}>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          <h4 className="font-display italic text-28 md:text-32 text-ink mb-2">{p.title}</h4>
+          <p className="text-13 text-ink-mute">{p.desc}</p>
+          <div className="flex justify-between items-center mt-auto pt-[14px] border-t border-line">
+            <div className="flex gap-[6px] flex-wrap">
               {p.stack.map((s) => (
-                <span key={s} style={{
-                  fontSize: 10,
-                  border: '1px solid var(--line)',
-                  padding: '2px 7px',
-                  color: 'var(--ink-mute)',
-                }}>{s}</span>
+                <span key={s} className="text-10 border border-line px-[7px] py-[2px] text-ink-mute">{s}</span>
               ))}
             </div>
-            <Link href={`/work/${p.slug}`} style={{
-              color: 'var(--accent)',
-              fontSize: 11,
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-            }}>
+            <Link href={`/work/${p.slug}`} className="text-accent text-11 tracking-016 uppercase shrink-0 ml-3">
               View →
             </Link>
           </div>

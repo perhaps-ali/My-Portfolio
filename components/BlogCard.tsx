@@ -14,52 +14,18 @@ interface BlogCardProps {
 export default function BlogCard({ slug, title, date, readTime, category, desc }: BlogCardProps) {
   return (
     <motion.div
-      whileHover={{}}
-      style={{
-        background: 'var(--bg)',
-        padding: 32,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 14,
-        minHeight: 240,
-      }}
+      className="bg-bg p-8 flex flex-col gap-[14px] min-h-60"
     >
-      <div style={{
-        display: 'flex',
-        gap: 12,
-        fontSize: 10,
-        letterSpacing: '0.16em',
-        textTransform: 'uppercase',
-        color: 'var(--ink-mute)',
-      }}>
-        <span style={{ color: 'var(--accent)' }}>{category}</span>
+      <div className="flex gap-3 text-10 tracking-016 uppercase text-ink-mute">
+        <span className="text-accent">{category}</span>
         <span>{date}</span>
         <span>{readTime}</span>
       </div>
-      <h4 style={{
-        fontFamily: 'var(--font-display)',
-        fontStyle: 'italic',
-        fontSize: 28,
-        lineHeight: 1.05,
-        margin: 0,
-        color: 'var(--ink)',
-      }}>
-        {title}
-      </h4>
-      <p style={{ fontSize: 13, color: 'var(--ink-mute)' }}>{desc}</p>
+      <h4 className="font-display italic text-28 leading-105 m-0 text-ink">{title}</h4>
+      <p className="text-13 text-ink-mute">{desc}</p>
       <Link
         href={`/blog/${slug}`}
-        style={{
-          marginTop: 'auto',
-          fontSize: 10,
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: 'var(--accent)',
-          display: 'inline-block',
-          transition: 'transform 0.15s ease',
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateX(4px)')}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateX(0)')}
+        className="mt-auto text-10 tracking-018 uppercase text-accent inline-block transition-transform duration-150 hover:translate-x-1"
       >
         Read →
       </Link>

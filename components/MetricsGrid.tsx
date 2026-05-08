@@ -1,43 +1,21 @@
 const metrics = [
-  { num: '−74', unit: '%', label: 'Time to first query',       desc: 'From signup to first executed statement.' },
-  { num: '3.2', unit: '×', label: 'Daily active engineers',    desc: 'QoQ post-launch.' },
-  { num: '99.9', unit: '',  label: 'Uptime, %',                desc: 'Edge + workers, full year.' },
-  { num: '<80', unit: 'ms', label: 'P95 latency',              desc: 'Query roundtrip, US-East.' },
+  { num: '−74',  unit: '%',  label: 'Time to first query',    desc: 'From signup to first executed statement.' },
+  { num: '3.2',  unit: '×',  label: 'Daily active engineers', desc: 'QoQ post-launch.' },
+  { num: '99.9', unit: '',   label: 'Uptime, %',              desc: 'Edge + workers, full year.' },
+  { num: '<80',  unit: 'ms', label: 'P95 latency',            desc: 'Query roundtrip, US-East.' },
 ]
 
 export default function MetricsGrid() {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      gap: 1,
-      background: 'var(--line)',
-      border: '1px solid var(--line)',
-    }}>
+    /* Mobile: 2×2. lg+: 4 across */
+    <div className="grid grid-cols-2 lg:grid-cols-4-even gap-px bg-line border border-line">
       {metrics.map((m) => (
-        <div key={m.label} style={{ background: 'var(--bg)', padding: 32 }}>
-          <div style={{
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 64,
-            letterSpacing: '-0.02em',
-            lineHeight: 1,
-            color: 'var(--ink)',
-          }}>
-            {m.num}<em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>{m.unit}</em>
+        <div key={m.label} className="bg-bg p-6 md:p-8">
+          <div className="font-display italic text-48 md:text-64 tracking-tighter leading-none text-ink">
+            {m.num}<em className="text-accent italic">{m.unit}</em>
           </div>
-          <div style={{
-            fontSize: 10,
-            textTransform: 'uppercase',
-            letterSpacing: '0.18em',
-            color: 'var(--ink-mute)',
-            marginTop: 10,
-          }}>
-            {m.label}
-          </div>
-          <div style={{ fontSize: 12, color: 'var(--ink)', marginTop: 8 }}>
-            {m.desc}
-          </div>
+          <div className="text-10 uppercase tracking-018 text-ink-mute mt-[10px]">{m.label}</div>
+          <div className="text-12 text-ink mt-2">{m.desc}</div>
         </div>
       ))}
     </div>
