@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import TopologyDiagram from '@/components/TopologyDiagram'
 import Footer from '@/components/Footer'
 import SectionHeader from '@/components/SectionHeader'
@@ -13,6 +14,7 @@ type Topology = {
 type Project = {
   title: string; tagline: string; year: string; role: string
   stack: string[]; url?: string; urlLabel?: string
+  cover?: string
   problem: string; roleDesc: string; stackDesc: string
   topology: Topology
 }
@@ -25,6 +27,7 @@ const projects: Record<string, Project> = {
     role: 'Frontend Developer',
     url: 'https://partner.sbaloanshq.com',
     urlLabel: 'Live site →',
+    cover: '/images/sbaloansDashboard.png',
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'REST API'],
     problem: 'Loan application flows were fragmented, with no unified frontend for applicants and partners managing SBA loan processes.',
     roleDesc: 'Built and structured the complete frontend. Owned all UI across loan application, document upload, and management flows.',
@@ -58,6 +61,7 @@ const projects: Record<string, Project> = {
     tagline: 'UI elevation and interface consistency for an automotive product.',
     year: '2024',
     role: 'Frontend Developer',
+    cover: '/images/swervDashboard.png',
     stack: ['React', 'TypeScript', 'Tailwind CSS', 'REST API'],
     problem: 'Interface inconsistency and poor component cohesion were reducing the product\'s visual quality and usability.',
     roleDesc: 'Elevated the product\'s visual quality and interface consistency. Refined component design, interaction patterns, and overall look and feel.',
@@ -89,6 +93,7 @@ const projects: Record<string, Project> = {
     tagline: 'A complete frontend overhaul — rebuilt from scratch, modernised and responsive.',
     year: '2024',
     role: 'Frontend Developer',
+    cover: '/images/nicgs.png',
     stack: ['Next.js', 'Tailwind CSS', 'CMS API', 'REST API'],
     problem: 'The existing website had an outdated design language, poor navigation structure, and no responsiveness across devices.',
     roleDesc: 'Led the complete UI rebuild. Redesigned all pages from the ground up, restructured navigation, and ensured a performant, responsive experience across all devices.',
@@ -124,9 +129,10 @@ const projects: Record<string, Project> = {
     role: 'Full-Stack Contributor',
     url: 'https://quanta-ar.netlify.app/login',
     urlLabel: 'Live demo →',
+    cover: '/images/quanta.png',
     stack: ['React', 'FastAPI', 'Gemini / Anthropic', 'PostgreSQL', 'MongoDB', 'REST API'],
     problem: 'Engineers and analysts needed a single interface to query multiple database types and visualise data without manual chart setup.',
-    roleDesc: 'Significant UI/UX improvements across the dashboard for data readability and usability. Contributed to backend query routing and AI-prompt chart generation features.',
+    roleDesc: 'Significant UI/UX improvements across the dashboard for data readability and usability. Contributed to some backend assistance.',
     stackDesc: 'React · FastAPI · Gemini / Anthropic · PostgreSQL · MongoDB',
     topology: {
       figLabel: 'fig.01 — system topology',
@@ -159,6 +165,7 @@ const projects: Record<string, Project> = {
     role: 'Full-Stack Developer',
     url: 'https://github.com/perhaps-ali/WeCare-Online-Catering-Reservation-System-',
     urlLabel: 'GitHub →',
+    cover: '/images/weCare.png',
     stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT'],
     problem: 'Event organisers and catering businesses had no unified system to manage bookings, menus, and event coordination digitally.',
     roleDesc: 'Built the complete MERN stack application — React frontend, Express REST API, MongoDB data layer, auth, order management, and event coordination flows.',
@@ -196,6 +203,7 @@ const projects: Record<string, Project> = {
     role: 'Frontend Developer',
     url: 'https://github.com/perhaps-ali/ChatApp',
     urlLabel: 'GitHub →',
+    cover: '/images/ChatApp.png',
     stack: ['Vue.js', 'Vuex', 'WebSockets', 'Node.js', 'JWT'],
     problem: 'A real-time messaging interface was needed with clean component architecture, user authentication, and responsive design.',
     roleDesc: 'Developed the complete Vue.js frontend — messaging interface, user authentication, real-time WebSocket integration, and responsive component design.',
@@ -281,8 +289,14 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             ))}
             <span className="ml-auto">{slug}.muhammadali.dev</span>
           </div>
-          <div className="flex-1 bg-bg border border-line flex items-center justify-center text-ink-mute text-11 tracking-012">
-            [ cover image ]
+          <div className="flex-1 border border-line overflow-hidden">
+            {project.cover ? (
+              <Image src={project.cover} alt={project.title} width={1200} height={480} quality={100} className="w-full h-full object-cover object-top" />
+            ) : (
+              <div className="w-full h-full bg-bg flex items-center justify-center text-ink-mute text-11 tracking-012">
+                [ cover image ]
+              </div>
+            )}
           </div>
         </div>
       </section>

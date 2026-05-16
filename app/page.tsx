@@ -19,7 +19,7 @@ const aboutItems = [
   { label: 'Stack',    value: 'React · Next.js · Vue · Node.js' },
   { label: 'Location', value: 'Lahore, Pakistan · GMT+5' },
   { label: 'Process',  value: 'Design-led, clean components, ship daily.' },
-  { label: 'Contact',  value: 'muhammadali908@gmail.com' },
+  { label: 'Contact',  value: 'muhammaddali908@gmail.com' },
 ]
 
 export default function Home() {
