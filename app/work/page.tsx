@@ -4,9 +4,54 @@ import { motion } from 'framer-motion'
 import Footer from '@/components/Footer'
 
 const allProjects = [
-  { slug: 'datadash',  title: 'DataDash',  year: '2025', idx: '01', desc: 'High-performance database management interface built for stability, speed, and developer efficiency.' },
-  { slug: 'wecare',    title: 'WeCare',    year: '2024', idx: '02', desc: 'Catering reservations — menu, orders, payments.' },
-  { slug: 'sba-loans', title: 'SBa Loans', year: '2024', idx: '03', desc: 'Loan applications & approval workflow.' },
+  {
+    slug: 'sba-loans',
+    title: 'SBA Loans',
+    year: '2024',
+    idx: '01',
+    role: 'Frontend Developer',
+    desc: 'Complete frontend for an SBA loan workflow platform — application flows, partner dashboard, and document management.',
+  },
+  {
+    slug: 'swerv',
+    title: 'Swerv',
+    year: '2024',
+    idx: '02',
+    role: 'Frontend Developer',
+    desc: 'UI elevation and interface consistency improvements for an automotive product — component design, usability, look & feel.',
+  },
+  {
+    slug: 'nicgs',
+    title: 'NICGS',
+    year: '2024',
+    idx: '03',
+    role: 'Frontend Developer',
+    desc: 'Complete frontend overhaul — rebuilt the UI from scratch, modernised design language, restructured navigation.',
+  },
+  {
+    slug: 'quanta',
+    title: 'Quanta',
+    year: '2024',
+    idx: '04',
+    role: 'Full-Stack Contributor',
+    desc: 'Data dashboard connecting multiple databases and auto-generating charts via queries or AI prompts. Full-stack contribution.',
+  },
+  {
+    slug: 'wecare',
+    title: 'WeCare',
+    year: '2024',
+    idx: '05',
+    role: 'Full-Stack Developer',
+    desc: 'Final Year Project — MERN stack catering and event management system with reservations, menu management, and ordering.',
+  },
+  {
+    slug: 'chatapp',
+    title: 'Chat App',
+    year: '2024',
+    idx: '06',
+    role: 'Frontend Developer',
+    desc: 'Real-time chat application frontend built with Vue.js — messaging UI, responsive layout, component architecture.',
+  },
 ]
 
 export default function WorkPage() {
@@ -29,19 +74,19 @@ export default function WorkPage() {
               key={p.slug}
               whileHover={{ backgroundColor: 'var(--fill-2)' }}
               transition={{ duration: 0.15 }}
-              /* Mobile: 2-col (year + content), no CTA column. md+: 3-col */
               className="grid grid-cols-[60px_1fr] md:grid-cols-work-row gap-4 md:gap-6 py-5 border-t border-line items-baseline"
             >
-              <span className="text-11 text-ink-mute tracking-01">{p.year}<span className="hidden md:inline"> · {p.idx}</span></span>
+              <span className="text-11 text-ink-mute tracking-01">
+                {p.year}<span className="hidden md:inline"> · {p.idx}</span>
+              </span>
               <div>
                 <div className="font-display italic text-28 md:text-36 text-ink leading-none mb-1">{p.title}</div>
+                <div className="text-10 uppercase tracking-012 text-accent mb-1">{p.role}</div>
                 <div className="text-13 text-ink-mute">{p.desc}</div>
-                {/* CTA inline on mobile */}
                 <Link href={`/work/${p.slug}`} className="md:hidden text-accent text-10 uppercase tracking-016 mt-2 inline-block">
                   View →
                 </Link>
               </div>
-              {/* CTA in own column on desktop */}
               <Link href={`/work/${p.slug}`} className="hidden md:block text-accent text-10 uppercase tracking-016">
                 View →
               </Link>

@@ -2,15 +2,26 @@
 import { motion } from 'framer-motion'
 
 const cards = [
-  { num: '01', title: 'Web & Frontend', items: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Vue', 'Tailwind'] },
-  { num: '02', title: 'Backend & APIs', items: ['Node.js', 'Express', 'REST', 'WebSockets', 'Auth', 'RBAC'] },
-  { num: '03', title: 'Data & Infra',   items: ['PostgreSQL', 'MySQL', 'Redis', 'Docker', 'CI/CD', 'Linux'] },
-  { num: '04', title: 'AI & Tooling',   items: ['OpenAI API', 'LangChain', 'Prompt eng.', 'RAG pipelines'] },
+  {
+    num: '01', title: 'Frontend',
+    items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Vue.js', 'Vuex', 'Tailwind CSS', 'Vuetify.js'],
+  },
+  {
+    num: '02', title: 'Backend & APIs',
+    items: ['Node.js', 'Express.js', 'RESTful API', 'WebSockets', 'Auth / JWT', 'RBAC'],
+  },
+  {
+    num: '03', title: 'Databases',
+    items: ['MySQL', 'MSSQL', 'PL/SQL', 'MongoDB', 'Mongoose', 'Redis'],
+  },
+  {
+    num: '04', title: 'Tooling',
+    items: ['Git', 'GitHub', 'Figma', 'Bootstrap', 'HTML / CSS', 'Linux'],
+  },
 ]
 
 export default function SkillGrid() {
   return (
-    /* Mobile: 1 col. md+: 2 cols */
     <div className="grid grid-cols-1 md:grid-cols-2-even gap-px bg-line border border-line">
       {cards.map((card, i) => (
         <motion.div

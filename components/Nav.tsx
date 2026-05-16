@@ -10,7 +10,7 @@ import SearchModal from './SearchModal'
 const links = [
   { label: 'Home',    href: '/' },
   { label: 'Work',    href: '/work' },
-  { label: 'Writing', href: '/blog' },
+  // { label: 'Writing', href: '/blog' },
   { label: 'About',   href: '/about' },
 ]
 

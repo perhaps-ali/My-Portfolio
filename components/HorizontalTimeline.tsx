@@ -2,16 +2,39 @@
 import { motion } from 'framer-motion'
 
 const nodes = [
-  { yr: '2024 →',    role: 'Senior Engineer',  co: 'Stealth',          desc: 'Agent infra · retrieval pipelines · edge runtimes', current: true  },
-  { yr: '2022 — 24', role: 'Full-stack Lead',   co: 'Swerv Automotive', desc: 'Customer surfaces, owned design system',            current: false },
-  { yr: '2020 — 22', role: 'Engineer',          co: 'NICGS',            desc: 'Enterprise workflows, structured data',             current: false },
-  { yr: '2019 — 20', role: 'Engineer',          co: 'FoodPro',          desc: 'Order flows, RBAC dashboards',                     current: false },
+  {
+    yr: '2024 →',
+    role: 'Software Engineer',
+    co: 'Arithmiks',
+    desc: 'Frontend systems, admin panels, customer & inventory management',
+    current: true,
+  },
+  {
+    yr: 'Aug–Nov 2024',
+    role: 'Frontend Trainee',
+    co: 'Programmers Force',
+    desc: 'Web apps, Chat application, Food Services platform',
+    current: false,
+  },
+  {
+    yr: 'Jul–Sep 2023',
+    role: 'Technical Intern',
+    co: 'Netsol Technologies',
+    desc: 'QA practices, software dev processes, cross-functional teams',
+    current: false,
+  },
+  {
+    yr: '2022–2024',
+    role: 'SEO Content Writer',
+    co: 'Freelance',
+    desc: 'Finance, UAE law, technical topics — hundreds of articles',
+    current: false,
+  },
 ]
 
 export default function HorizontalTimeline() {
   return (
     <div>
-      {/* Rail — hidden on mobile (timeline is vertical there) */}
       <div className="hidden md:block h-px bg-line-strong relative mb-6">
         {[0, 25, 50, 75, 100].map((pct) => (
           <div
@@ -22,7 +45,6 @@ export default function HorizontalTimeline() {
         ))}
       </div>
 
-      {/* Mobile: vertical stack. md+: 4-col horizontal grid */}
       <div className="flex flex-col gap-6 md:grid md:grid-cols-4-even md:gap-8">
         {nodes.map((n, i) => (
           <motion.div
