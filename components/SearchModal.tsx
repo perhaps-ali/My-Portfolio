@@ -6,9 +6,12 @@ import { Search, X } from 'lucide-react'
 
 const ALL_ITEMS = [
   // Projects
-  { type: 'Project', title: 'DataDash',  href: '/work/datadash',  desc: 'High-performance database management interface.' },
-  { type: 'Project', title: 'WeCare',    href: '/work/wecare',    desc: 'Catering reservations — menu, orders, payments.' },
-  { type: 'Project', title: 'SBa Loans', href: '/work/sba-loans', desc: 'Loan applications & approval workflow.' },
+  { type: 'Project', title: 'SBA Loans', href: '/work/sba-loans', desc: 'Complete frontend for an SBA loan workflow platform.' },
+  { type: 'Project', title: 'Swerv',     href: '/work/swerv',     desc: 'UI elevation and interface consistency for an automotive product.' },
+  { type: 'Project', title: 'NICGS',     href: '/work/nicgs',     desc: 'Complete frontend overhaul — rebuilt from scratch, responsive.' },
+  { type: 'Project', title: 'Quanta',    href: '/work/quanta',    desc: 'Data dashboard — multi-DB, AI-generated charts, full-stack.' },
+  { type: 'Project', title: 'WeCare',    href: '/work/wecare',    desc: 'MERN stack catering & event management system (FYP).' },
+  { type: 'Project', title: 'Chat App',  href: '/work/chatapp',   desc: 'Real-time chat frontend built with Vue.js.' },
   // Posts
   { type: 'Post', title: 'On retrieval as a first-class UI concern', href: '/blog/retrieval-as-ui',   desc: 'Why RAG belongs in design reviews.' },
   { type: 'Post', title: 'The case against the framework du jour',   href: '/blog/against-framework', desc: 'Half-life of your favorite tool.' },
@@ -17,9 +20,8 @@ const ALL_ITEMS = [
   { type: 'Post', title: 'Year in code: 2025',                       href: '/blog/year-in-code-2025', desc: 'Numbers, lessons, regrets.' },
   { type: 'Post', title: 'Building agent loops without losing the plot', href: '/blog/agent-loops',   desc: 'Patterns for model plan-act loops.' },
   // Pages
-  { type: 'Page', title: 'About',   href: '/about', desc: 'Who I am and how I work.' },
-  { type: 'Page', title: 'Work',    href: '/work',  desc: 'All projects.' },
-  { type: 'Page', title: 'Writing', href: '/blog',  desc: 'All posts.' },
+  { type: 'Page', title: 'About', href: '/about', desc: 'Who I am and how I work.' },
+  { type: 'Page', title: 'Work',  href: '/work',  desc: 'All projects.' },
 ]
 
 interface Props {
@@ -38,7 +40,6 @@ export default function SearchModal({ open, onClose }: Props) {
         `${item.title} ${item.desc} ${item.type}`.toLowerCase().includes(query.toLowerCase())
       )
 
-  // Reset state when modal opens
   useEffect(() => {
     if (open) {
       setQuery('')
@@ -47,12 +48,10 @@ export default function SearchModal({ open, onClose }: Props) {
     }
   }, [open])
 
-  // Keep cursor in bounds when results change
   useEffect(() => {
     setCursor(0)
   }, [query])
 
-  // Keyboard navigation
   useEffect(() => {
     if (!open) return
     const handler = (e: KeyboardEvent) => {
@@ -72,7 +71,6 @@ export default function SearchModal({ open, onClose }: Props) {
     <AnimatePresence>
       {open && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -82,7 +80,6 @@ export default function SearchModal({ open, onClose }: Props) {
             onClick={onClose}
           />
 
-          {/* Modal */}
           <motion.div
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -91,7 +88,6 @@ export default function SearchModal({ open, onClose }: Props) {
             className="fixed top-[80px] left-1/2 -translate-x-1/2 z-[201] w-full max-w-[600px] mx-4 border border-line-strong bg-bg-soft"
             style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.6)' }}
           >
-            {/* Input row */}
             <div className="flex items-center gap-3 px-4 py-3 border-b border-line">
               <Search size={14} className="text-ink-mute shrink-0" />
               <input
@@ -107,7 +103,6 @@ export default function SearchModal({ open, onClose }: Props) {
               </button>
             </div>
 
-            {/* Results */}
             <ul className="max-h-[380px] overflow-y-auto">
               {results.length === 0 && (
                 <li className="px-4 py-8 text-center text-12 text-ink-mute">No results for &ldquo;{query}&rdquo;</li>
@@ -142,7 +137,6 @@ export default function SearchModal({ open, onClose }: Props) {
               ))}
             </ul>
 
-            {/* Footer hint */}
             <div className="flex gap-4 px-4 py-2 border-t border-line text-[10px] text-ink-mute tracking-012 uppercase">
               <span><kbd className="font-mono">↑↓</kbd> navigate</span>
               <span><kbd className="font-mono">↵</kbd> open</span>

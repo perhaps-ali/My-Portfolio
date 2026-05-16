@@ -1,14 +1,13 @@
 const contacts = [
-  { label: 'Email',   value: 'hello@muhammadali.dev' },
-  { label: 'Github',  value: 'github.com/muhammadali' },
-  { label: 'CV',      value: 'read.cv/muhammadali' },
-  { label: 'Twitter', value: '@_muhammadali' },
+  { label: 'Email',    value: 'muhammadali908@gmail.com' },
+  { label: 'Phone',    value: '(+92) 03238890511' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/muhammad-ali908' },
+  { label: 'GitHub',   value: 'github.com/perhaps-ali' },
   { label: '© 2026',  value: 'Built with Next.js' },
 ]
 
 export default function Footer() {
   return (
-    /* Mobile: 1 col. md+: 2-col asymmetric */
     <footer className="grid grid-cols-1 md:grid-cols-footer gap-10 md:gap-[60px] px-5 md:px-8 py-16 md:py-20 border-t border-line">
       <h2
         className="font-display italic leading-092 tracking-tighter text-ink"
