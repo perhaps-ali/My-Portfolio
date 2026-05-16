@@ -70,27 +70,25 @@ export default function WorkPage() {
         </h1>
         <div>
           {allProjects.map((p) => (
-            <motion.div
-              key={p.slug}
-              whileHover={{ backgroundColor: 'var(--fill-2)' }}
-              transition={{ duration: 0.15 }}
-              className="grid grid-cols-[60px_1fr] md:grid-cols-work-row gap-4 md:gap-6 py-5 border-t border-line items-baseline"
-            >
-              <span className="text-11 text-ink-mute tracking-01">
-                {p.year}<span className="hidden md:inline"> · {p.idx}</span>
-              </span>
-              <div>
-                <div className="font-display italic text-28 md:text-36 text-ink leading-none mb-1">{p.title}</div>
-                <div className="text-10 uppercase tracking-012 text-accent mb-1">{p.role}</div>
-                <div className="text-13 text-ink-mute">{p.desc}</div>
-                <Link href={`/work/${p.slug}`} className="md:hidden text-accent text-10 uppercase tracking-016 mt-2 inline-block">
+            <Link key={p.slug} href={`/work/${p.slug}`} className="block">
+              <motion.div
+                whileHover={{ backgroundColor: 'var(--fill-2)' }}
+                transition={{ duration: 0.15 }}
+                className="grid grid-cols-[60px_1fr] md:grid-cols-work-row gap-4 md:gap-6 py-5 border-t border-line items-baseline cursor-pointer"
+              >
+                <span className="text-11 text-ink-mute tracking-01">
+                  {p.idx}
+                </span>
+                <div>
+                  <div className="font-display italic text-28 md:text-36 text-ink leading-none mb-1">{p.title}</div>
+                  <div className="text-10 uppercase tracking-012 text-accent mb-1">{p.role}</div>
+                  <div className="text-13 text-ink-mute">{p.desc}</div>
+                </div>
+                <span className="hidden md:block text-accent text-10 uppercase tracking-016">
                   View →
-                </Link>
-              </div>
-              <Link href={`/work/${p.slug}`} className="hidden md:block text-accent text-10 uppercase tracking-016">
-                View →
-              </Link>
-            </motion.div>
+                </span>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </section>

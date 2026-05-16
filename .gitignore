@@ -44,3 +44,5 @@ next-env.d.ts
 .claude/
 AGENTS.md
 CLAUDE.md
+temp_auto_push.bat
+temp_interactive_push.bat

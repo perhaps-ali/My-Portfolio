@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const projects = [
@@ -11,6 +12,7 @@ const projects = [
     role: 'Frontend Developer',
     desc: 'Complete frontend for an SBA loan workflow platform — application flows, partner dashboard, and document management.',
     stack: ['Next.js', 'Django', 'Tailwind CSS'],
+    cover: '/images/sbaloansDashboard.png',
   },
   {
     slug: 'swerv',
@@ -20,6 +22,7 @@ const projects = [
     role: 'Frontend Developer',
     desc: 'UI elevation and interface consistency for an automotive product — component design, usability, look & feel.',
     stack: ['Next.js', 'Django', 'Tailwind CSS'],
+    cover: '/images/swervDashboard.png',
   },
   {
     slug: 'nicgs',
@@ -29,6 +32,7 @@ const projects = [
     role: 'Frontend Developer',
     desc: 'Complete frontend overhaul — rebuilt from scratch, modernised design language, restructured navigation.',
     stack: ['Next.js', 'Django', 'Tailwind CSS'],
+    cover: '/images/nicgs.png',
   },
   {
     slug: 'quanta',
@@ -38,6 +42,7 @@ const projects = [
     role: 'Full-Stack Contributor',
     desc: 'Data dashboard connecting multiple databases and auto-generating charts from queries or AI prompts.',
     stack: ['Next.js', 'TypeScript', 'FastAPI', 'AI'],
+    cover: '/images/quanta.png',
   },
   {
     slug: 'wecare',
@@ -47,6 +52,7 @@ const projects = [
     role: 'Full-Stack Developer',
     desc: 'Final Year Project — MERN stack catering & event management with reservations, menu management, and ordering.',
     stack: ['MongoDB', 'Express', 'React', 'Node.js'],
+    cover: '/images/weCare.png',
   },
   {
     slug: 'chatapp',
@@ -56,6 +62,7 @@ const projects = [
     role: 'Frontend Developer',
     desc: 'Real-time chat application frontend — Vue.js messaging UI, responsive layout, clean component architecture.',
     stack: ['Vue.js'],
+    cover: '/images/ChatApp.png',
   },
 ]
 
@@ -77,8 +84,14 @@ export default function ProjectGrid() {
           <h4 className="font-display italic text-32 md:text-40 text-ink leading-none mb-1">{p.title}</h4>
           <div className="text-10 uppercase tracking-012 text-accent mb-3">{p.role}</div>
           <p className="text-13 text-ink-mute">{p.desc}</p>
-          <div className="my-5 bg-bg-soft border border-line flex items-center justify-center text-ink-mute text-11 tracking-012" style={{ height: 120 }}>
-            [ cover image ]
+          <div className="my-5 border border-line overflow-hidden bg-bg-soft" style={{ height: 160 }}>
+            {p.cover ? (
+              <Image src={p.cover} alt={p.title} width={600} height={160} quality={100} className="w-full h-full object-contain" />
+            ) : (
+              <div className="w-full h-full bg-bg-soft flex items-center justify-center text-ink-mute text-11 tracking-012">
+                [ cover image ]
+              </div>
+            )}
           </div>
           <div className="flex justify-between items-center mt-auto pt-[14px] border-t border-line">
             <div className="flex gap-[6px] flex-wrap">
