@@ -10,7 +10,7 @@ const projects = [
     idx: '01',
     role: 'Frontend Developer',
     desc: 'Complete frontend for an SBA loan workflow platform — application flows, partner dashboard, and document management.',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    stack: ['Next.js', 'Django', 'Tailwind CSS'],
   },
   {
     slug: 'swerv',
@@ -19,7 +19,7 @@ const projects = [
     idx: '02',
     role: 'Frontend Developer',
     desc: 'UI elevation and interface consistency for an automotive product — component design, usability, look & feel.',
-    stack: ['React', 'TypeScript', 'Tailwind CSS'],
+    stack: ['Next.js', 'Django', 'Tailwind CSS'],
   },
   {
     slug: 'nicgs',
@@ -28,7 +28,7 @@ const projects = [
     idx: '03',
     role: 'Frontend Developer',
     desc: 'Complete frontend overhaul — rebuilt from scratch, modernised design language, restructured navigation.',
-    stack: ['Next.js', 'Tailwind CSS', 'CMS API'],
+    stack: ['Next.js', 'Django', 'Tailwind CSS'],
   },
   {
     slug: 'quanta',
@@ -37,7 +37,7 @@ const projects = [
     idx: '04',
     role: 'Full-Stack Contributor',
     desc: 'Data dashboard connecting multiple databases and auto-generating charts from queries or AI prompts.',
-    stack: ['React', 'Node.js', 'OpenAI API'],
+    stack: ['Next.js', 'TypeScript', 'FastAPI', 'AI'],
   },
   {
     slug: 'wecare',
@@ -46,7 +46,7 @@ const projects = [
     idx: '05',
     role: 'Full-Stack Developer',
     desc: 'Final Year Project — MERN stack catering & event management with reservations, menu management, and ordering.',
-    stack: ['React', 'Express', 'MongoDB'],
+    stack: ['MongoDB', 'Express', 'React', 'Node.js'],
   },
   {
     slug: 'chatapp',
@@ -55,7 +55,7 @@ const projects = [
     idx: '06',
     role: 'Frontend Developer',
     desc: 'Real-time chat application frontend — Vue.js messaging UI, responsive layout, clean component architecture.',
-    stack: ['Vue.js', 'Vuex', 'WebSockets'],
+    stack: ['Vue.js'],
   },
 ]
 

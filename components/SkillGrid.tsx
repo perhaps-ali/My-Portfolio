@@ -8,15 +8,15 @@ const cards = [
   },
   {
     num: '02', title: 'Backend & APIs',
-    items: ['Node.js', 'Express.js', 'RESTful API', 'WebSockets', 'Auth / JWT', 'RBAC'],
+    items: ['Express.js', 'RESTful API', 'Auth / JWT', 'RBAC'],
   },
   {
     num: '03', title: 'Databases',
-    items: ['MySQL', 'MSSQL', 'PL/SQL', 'MongoDB', 'Mongoose', 'Redis'],
+    items: ['MySQL', 'PL/SQL', 'MongoDB', 'Mongoose'],
   },
   {
     num: '04', title: 'Tooling',
-    items: ['Git', 'GitHub', 'Figma', 'Bootstrap', 'HTML / CSS', 'Linux'],
+    items: ['Git', 'GitHub', 'Bootstrap', 'Linux'],
   },
 ]
 

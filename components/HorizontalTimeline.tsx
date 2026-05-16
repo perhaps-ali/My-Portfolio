@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 const nodes = [
   {
-    yr: '2024 →',
+    yr: '2025 →',
     role: 'Software Engineer',
     co: 'Arithmiks',
     desc: 'Frontend systems, admin panels, customer & inventory management',

@@ -58,7 +58,7 @@ export default function Nav() {
           className="hidden md:flex items-center gap-2 w-full max-w-480 mx-auto px-3 py-[6px] border border-line rounded-sm text-ink-mute cursor-pointer bg-transparent hover:border-line-strong transition-colors"
         >
           <Search size={13} />
-          <span className="text-12 flex-1 text-left hidden lg:inline">Search projects, posts, snippets…</span>
+          <span className="text-12 flex-1 text-left hidden lg:inline">Search projects, snippets…</span>
           <span className="text-12 flex-1 text-left lg:hidden">Search…</span>
           <span className="border border-line px-[5px] py-[1px] text-10 tracking-005">⌘K</span>
         </button>

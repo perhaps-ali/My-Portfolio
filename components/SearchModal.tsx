@@ -12,13 +12,6 @@ const ALL_ITEMS = [
   { type: 'Project', title: 'Quanta',    href: '/work/quanta',    desc: 'Data dashboard — multi-DB, AI-generated charts, full-stack.' },
   { type: 'Project', title: 'WeCare',    href: '/work/wecare',    desc: 'MERN stack catering & event management system (FYP).' },
   { type: 'Project', title: 'Chat App',  href: '/work/chatapp',   desc: 'Real-time chat frontend built with Vue.js.' },
-  // Posts
-  { type: 'Post', title: 'On retrieval as a first-class UI concern', href: '/blog/retrieval-as-ui',   desc: 'Why RAG belongs in design reviews.' },
-  { type: 'Post', title: 'The case against the framework du jour',   href: '/blog/against-framework', desc: 'Half-life of your favorite tool.' },
-  { type: 'Post', title: 'Edge runtimes, three years in',            href: '/blog/edge-runtimes',     desc: 'What I got wrong about cold starts.' },
-  { type: 'Post', title: 'The CSS feature you should be using',      href: '/blog/container-queries', desc: 'Container queries, finally.' },
-  { type: 'Post', title: 'Year in code: 2025',                       href: '/blog/year-in-code-2025', desc: 'Numbers, lessons, regrets.' },
-  { type: 'Post', title: 'Building agent loops without losing the plot', href: '/blog/agent-loops',   desc: 'Patterns for model plan-act loops.' },
   // Pages
   { type: 'Page', title: 'About', href: '/about', desc: 'Who I am and how I work.' },
   { type: 'Page', title: 'Work',  href: '/work',  desc: 'All projects.' },
@@ -95,7 +88,7 @@ export default function SearchModal({ open, onClose }: Props) {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search projects, posts, pages…"
+                placeholder="Search projects, pages…"
                 className="flex-1 bg-transparent text-12 text-ink placeholder:text-ink-mute outline-none border-0 font-mono"
               />
               <button onClick={onClose} className="text-ink-mute hover:text-ink transition-colors cursor-pointer bg-transparent border-0">
