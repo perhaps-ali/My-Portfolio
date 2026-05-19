@@ -1,6 +1,6 @@
 const contacts = [
   { label: 'Email',    value: 'muhammaddali908@gmail.com' },
-  { label: 'Phone',    value: '(+92) 3238890511' },
+  { label: 'Phone',    value: '(+92) 03238890511' },
   { label: 'LinkedIn', value: 'linkedin.com/in/muhammad-ali908' },
   { label: 'GitHub',   value: 'github.com/perhaps-ali' },
   { label: '© 2026',  value: 'Built with Next.js' },
