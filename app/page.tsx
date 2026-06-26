@@ -27,8 +27,8 @@ export default function Home() {
   const heroRef = useRef<HTMLElement>(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const springX = useSpring(mouseX, { stiffness: 60, damping: 20 })
-  const springY = useSpring(mouseY, { stiffness: 60, damping: 20 })
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 18, mass: 0.5 })
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 18, mass: 0.5 })
 
   const [hoveredAbout, setHoveredAbout] = useState<string | null>(null)
 
@@ -55,11 +55,23 @@ export default function Home() {
           px-5 md:px-8
           py-12 md:py-24"
       >
-        {/* Cursor-tracking glow */}
+        {/* Cursor-tracking glow — tight bright core + wide soft halo */}
         <motion.div
-          className="pointer-events-none absolute w-[600px] h-[600px] rounded-full"
+          className="pointer-events-none absolute rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 65%)',
+            width: 320, height: 320,
+            background: 'radial-gradient(circle, rgba(245,158,11,0.22) 0%, rgba(245,158,11,0.06) 40%, transparent 70%)',
+            x: useTransform(springX, v => v - 160),
+            y: useTransform(springY, v => v - 160),
+            filter: 'blur(2px)',
+          }}
+        />
+        {/* Second wider halo for depth */}
+        <motion.div
+          className="pointer-events-none absolute rounded-full"
+          style={{
+            width: 600, height: 600,
+            background: 'radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 60%)',
             x: useTransform(springX, v => v - 300),
             y: useTransform(springY, v => v - 300),
           }}
@@ -67,8 +79,8 @@ export default function Home() {
 
         {/* Static ambient glow top-right */}
         <div
-          className="pointer-events-none absolute top-0 right-0 w-[700px] h-[500px] opacity-[0.05]"
-          style={{ background: 'radial-gradient(ellipse at top right, var(--accent), transparent 55%)' }}
+          className="pointer-events-none absolute top-0 right-0 w-[500px] h-[350px] opacity-[0.04]"
+          style={{ background: 'radial-gradient(ellipse at top right, var(--accent), transparent 60%)' }}
         />
 
         {/* Animated corner brackets */}

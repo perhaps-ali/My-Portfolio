@@ -150,7 +150,7 @@ const projects: Record<string, Project> = {
     tagline: 'A data dashboard that connects to multiple databases and auto-generates charts from queries or AI prompts.',
     year: '2024',
     role: 'Full-Stack Contributor',
-    url: 'https://quanta-ar.netlify.app/login',
+    url: 'https://quanta.arithmiks.com/',
     urlLabel: 'Live demo →',
     cover: '/images/quanta.png',
     stack: ['React', 'FastAPI', 'Gemini / Anthropic', 'PostgreSQL', 'MongoDB', 'REST API'],
