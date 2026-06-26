@@ -56,7 +56,7 @@ export default function AboutPage() {
             </p>
             <p className="font-display italic text-20 md:text-24 leading-155 text-ink-mute">
               Graduate of Government College University Lahore (BSc Computer Sciences, 2024). Full-stack
-              capable with a strong frontend focus: React, Next.js, Vue, Node.js, and SQL/NoSQL databases.
+              capable with a strong frontend focus: React, Next.js, Vue, FastAPI, Django REST Framework, and SQL/NoSQL databases.
             </p>
           </div>
           <div className="md:border-l md:border-line md:pl-8 grid gap-[14px] text-12 text-ink-mute content-start pt-6 md:pt-0 border-t md:border-t-0 border-line">

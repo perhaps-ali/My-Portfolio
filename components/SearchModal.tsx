@@ -78,7 +78,7 @@ export default function SearchModal({ open, onClose }: Props) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="fixed top-[80px] left-1/2 -translate-x-1/2 z-[201] w-full max-w-[600px] mx-4 border border-line-strong bg-bg-soft"
+            className="fixed top-[80px] inset-x-4 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 z-[201] md:w-full md:max-w-[600px] border border-line-strong bg-bg-soft"
             style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.6)' }}
           >
             <div className="flex items-center gap-3 px-4 py-3 border-b border-line">

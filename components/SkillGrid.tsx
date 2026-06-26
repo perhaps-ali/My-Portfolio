@@ -4,11 +4,11 @@ import { motion } from 'framer-motion'
 const cards = [
   {
     num: '01', title: 'Frontend',
-    items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Vue.js', 'Vuex', 'Tailwind CSS', 'Vuetify.js'],
+    items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
   },
   {
     num: '02', title: 'Backend & APIs',
-    items: ['Express.js', 'RESTful API', 'Auth / JWT', 'RBAC'],
+    items: ['FastAPI', 'Django REST', 'RESTful API', 'Auth / JWT'],
   },
   {
     num: '03', title: 'Databases',

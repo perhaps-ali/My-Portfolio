@@ -10,6 +10,8 @@ type Topology = {
   figLabel: string; version: string; height: number
   axisX?: string; axisY?: string
   nodes: TopoNode[]; edges: TopoEdge[]
+  stack?: string[]
+  stats?: { label: string; value: string }[]
 }
 type Project = {
   title: string; tagline: string; year: string; role: string
@@ -53,6 +55,13 @@ const projects: Record<string, Project> = {
         { from: 'nextapp',  to: 'auth'     },
         { from: 'sbaapi',   to: 'docstore' },
       ],
+      stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'REST API', 'JWT', 'S3'],
+      stats: [
+        { label: 'Role',     value: 'Frontend' },
+        { label: 'Year',     value: '2024' },
+        { label: 'Type',     value: 'Production' },
+        { label: 'Nodes',    value: '6' },
+      ],
     },
   },
 
@@ -84,6 +93,13 @@ const projects: Record<string, Project> = {
         { from: 'reactapp', to: 'autoapi'  },
         { from: 'autoapi',  to: 'cmsdb'    },
         { from: 'reactapp', to: 'cdn'      },
+      ],
+      stack: ['React', 'TypeScript', 'Tailwind CSS', 'REST API', 'CDN'],
+      stats: [
+        { label: 'Role',  value: 'Frontend' },
+        { label: 'Year',  value: '2024' },
+        { label: 'Type',  value: 'Internal' },
+        { label: 'Nodes', value: '5' },
       ],
     },
   },
@@ -118,6 +134,13 @@ const projects: Record<string, Project> = {
         { from: 'cmsapi',  to: 'contentdb' },
         { from: 'nextapp', to: 'imgcdn'    },
         { from: 'nextapp', to: 'seo'       },
+      ],
+      stack: ['Next.js', 'Tailwind CSS', 'CMS API', 'REST API', 'Image CDN'],
+      stats: [
+        { label: 'Role',  value: 'Frontend' },
+        { label: 'Year',  value: '2024' },
+        { label: 'Type',  value: 'Revamp' },
+        { label: 'Nodes', value: '6' },
       ],
     },
   },
@@ -154,6 +177,13 @@ const projects: Record<string, Project> = {
         { from: 'query',     to: 'database'  },
         { from: 'query',     to: 'ailayer'   },
         { from: 'ailayer',   to: 'Gemini / Anthropic'    },
+      ],
+      stack: ['React', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Gemini', 'Anthropic'],
+      stats: [
+        { label: 'Role',  value: 'Full-Stack' },
+        { label: 'Year',  value: '2024' },
+        { label: 'Type',  value: 'Live' },
+        { label: 'Nodes', value: '6' },
       ],
     },
   },
@@ -193,6 +223,13 @@ const projects: Record<string, Project> = {
         { from: 'express', to: 'events'  },
         { from: 'events',  to: 'payment' },
       ],
+      stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT'],
+      stats: [
+        { label: 'Role',  value: 'Full-Stack' },
+        { label: 'Year',  value: '2024' },
+        { label: 'Type',  value: 'FYP' },
+        { label: 'Nodes', value: '7' },
+      ],
     },
   },
 
@@ -228,6 +265,13 @@ const projects: Record<string, Project> = {
         { from: 'ws',      to: 'msgstore' },
         { from: 'vueapp',  to: 'auth'     },
         { from: 'ws',      to: 'presence' },
+      ],
+      stack: ['Vue.js', 'Vuex', 'Socket.io', 'Node.js', 'JWT'],
+      stats: [
+        { label: 'Role',  value: 'Frontend' },
+        { label: 'Year',  value: '2024' },
+        { label: 'Type',  value: 'Shipped' },
+        { label: 'Nodes', value: '6' },
       ],
     },
   },
@@ -333,6 +377,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               height={project.topology.height}
               axisX={project.topology.axisX}
               axisY={project.topology.axisY}
+              stack={project.topology.stack}
+              stats={project.topology.stats}
             />
           </div>
         </div>
