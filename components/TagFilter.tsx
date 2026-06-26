@@ -16,7 +16,7 @@ const tags = [
 
 export default function TagFilter({ active, onChange }: TagFilterProps) {
   return (
-    <div className="px-8 pb-6 border-b border-line flex gap-[6px] flex-wrap">
+    <div className="px-5 md:px-8 pb-6 border-b border-line flex gap-[6px] flex-nowrap md:flex-wrap overflow-x-auto scrollbar-none">
       {tags.map((t) => (
         <button
           key={t.label}

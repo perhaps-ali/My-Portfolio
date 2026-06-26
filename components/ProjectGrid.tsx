@@ -51,7 +51,7 @@ const projects = [
     idx: '05',
     role: 'Full-Stack Developer',
     desc: 'Final Year Project — MERN stack catering & event management with reservations, menu management, and ordering.',
-    stack: ['MongoDB', 'Express', 'React', 'Node.js'],
+    stack: ['React', 'FastAPI', 'MongoDB'],
     cover: '/images/weCare.png',
   },
   {

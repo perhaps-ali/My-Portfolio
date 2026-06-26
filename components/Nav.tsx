@@ -6,18 +6,19 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAccentCycle } from './AccentCycler'
 import SearchModal from './SearchModal'
+import ContactOverlay from './ContactOverlay'
 
 const links = [
-  { label: 'Home',    href: '/' },
-  { label: 'Work',    href: '/work' },
-  // { label: 'Writing', href: '/blog' },
-  { label: 'About',   href: '/about' },
+  { label: 'Home',  href: '/' },
+  { label: 'Work',  href: '/work' },
+  { label: 'About', href: '/about' },
 ]
 
 export default function Nav() {
   const pathname = usePathname()
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
+  const [menuOpen,    setMenuOpen]    = useState(false)
+  const [searchOpen,  setSearchOpen]  = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
   const cycle = useAccentCycle()
 
   // ⌘K / Ctrl+K global shortcut
@@ -34,13 +35,12 @@ export default function Nav() {
 
   return (
     <>
-      {/* Mobile: brand + hamburger (2-col auto). Desktop: 4-col nav grid */}
       <nav
         className="sticky top-0 z-50 grid items-center px-5 md:px-8 py-[14px] border-b border-line backdrop-blur-12
           grid-cols-[auto_auto] md:grid-cols-nav md:gap-8"
         style={{ background: 'rgba(10,10,10,0.85)' }}
       >
-        {/* Brand — always visible */}
+        {/* Brand */}
         <div className="flex items-center gap-2">
           <button
             onClick={cycle}
@@ -52,10 +52,11 @@ export default function Nav() {
           <span className="text-12 text-ink-mute hidden sm:inline">/v6.2026</span>
         </div>
 
-        {/* Command Bar — clickable button, hidden on mobile */}
+        {/* Command Bar */}
         <button
           onClick={() => setSearchOpen(true)}
-          className="hidden md:flex items-center gap-2 w-full max-w-480 mx-auto px-3 py-[6px] border border-line rounded-sm text-ink-mute cursor-pointer bg-transparent hover:border-line-strong transition-colors"
+          className="hidden md:flex items-center gap-2 w-full max-w-480 mx-auto px-3 py-[6px] border border-line-strong rounded-sm text-ink-mute cursor-pointer hover:border-accent hover:text-ink transition-colors"
+          style={{ background: 'var(--fill-2)' }}
         >
           <Search size={13} />
           <span className="text-12 flex-1 text-left hidden lg:inline">Search projects, snippets…</span>
@@ -63,8 +64,8 @@ export default function Nav() {
           <span className="border border-line px-[5px] py-[1px] text-10 tracking-005">⌘K</span>
         </button>
 
-        {/* Nav Links — hidden on mobile */}
-        <div className="hidden md:flex gap-1">
+        {/* Nav Links */}
+        <div className="hidden md:flex gap-1 items-center">
           {links.map((l) => {
             const active = pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href))
             return (
@@ -81,25 +82,40 @@ export default function Nav() {
               </Link>
             )
           })}
+          {/* Contact button */}
+          <button
+            onClick={() => setContactOpen(true)}
+            className="text-11 uppercase tracking-012 px-[10px] py-[6px] border border-accent text-accent cursor-pointer bg-transparent transition-colors duration-200 hover:bg-accent hover:text-bg ml-1"
+          >
+            Contact
+          </button>
         </div>
 
-        {/* Status — hidden on mobile */}
+        {/* Status */}
         <div className="hidden md:flex items-center gap-[6px]">
           <span className="glow-pulse w-[6px] h-[6px] rounded-full bg-accent block" />
           <span className="text-11 uppercase tracking-012 text-ink-mute">Online</span>
         </div>
 
-        {/* Hamburger — visible only on mobile */}
-        <button
-          className="md:hidden justify-self-end bg-transparent border-0 text-ink cursor-pointer text-xl leading-none"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-        >
-          ☰
-        </button>
+        {/* Mobile: Contact + Hamburger */}
+        <div className="md:hidden justify-self-end flex items-center gap-2">
+          <button
+            onClick={() => setContactOpen(true)}
+            className="text-10 uppercase tracking-012 px-3 py-[5px] border border-accent text-accent cursor-pointer bg-transparent"
+          >
+            Contact
+          </button>
+          <button
+            className="bg-transparent border-0 text-ink cursor-pointer text-xl leading-none"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            ☰
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile full-screen overlay */}
+      {/* Mobile overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -114,7 +130,6 @@ export default function Nav() {
             >
               ✕
             </button>
-            {/* Search entry point in mobile overlay */}
             <button
               onClick={() => { setMenuOpen(false); setSearchOpen(true) }}
               className="flex items-center gap-2 border border-line px-4 py-2 text-ink-mute text-12 cursor-pointer bg-transparent"
@@ -137,6 +152,7 @@ export default function Nav() {
       </AnimatePresence>
 
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <ContactOverlay open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   )
 }

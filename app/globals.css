@@ -49,6 +49,27 @@ h1, h2, h3, h4 {
 
 a { color: inherit; text-decoration: none; }
 
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker 28s linear infinite;
+}
+
+@keyframes dash-flow {
+  0%   { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes dash-flow-border {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -48; }
+}
+
 /* Hero corner bracket marks */
 .en-hero::before,
 .en-hero::after {
