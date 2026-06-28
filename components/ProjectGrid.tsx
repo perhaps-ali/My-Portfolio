@@ -7,41 +7,42 @@ const projects = [
   {
     slug: 'sba-loans',
     title: 'SBA Loans',
-    year: '2024',
+    year: '2025–2026',
     idx: '01',
     role: 'Frontend Developer',
     desc: 'Complete frontend for an SBA loan workflow platform — application flows, partner dashboard, and document management.',
-    stack: ['Next.js', 'Django', 'Tailwind CSS'],
-    cover: '/images/sbaloansDashboard.png',
+    stack: ['Next.js', 'Django', 'Tailwind'],
+    cover: '/images/loanbridge.png',
+    featured: true,
   },
   {
     slug: 'swerv',
     title: 'Swerv',
-    year: '2024',
+    year: '2025',
     idx: '02',
     role: 'Frontend Developer',
     desc: 'UI elevation and interface consistency for an automotive product — component design, usability, look & feel.',
-    stack: ['Next.js', 'Django', 'Tailwind CSS'],
-    cover: '/images/swervDashboard.png',
+    stack: ['Next.js', 'Django', 'Tailwind'],
+    cover: '/images/autocore-dashboard.png',
   },
   {
     slug: 'nicgs',
     title: 'NICGS',
-    year: '2024',
+    year: '2025',
     idx: '03',
     role: 'Frontend Developer',
     desc: 'Complete frontend overhaul — rebuilt from scratch, modernised design language, restructured navigation.',
-    stack: ['Next.js', 'Django', 'Tailwind CSS'],
-    cover: '/images/nicgs.png',
+    stack: ['Next.js', 'Django', 'Tailwind'],
+    cover: '/images/noor-cart.png',
   },
   {
     slug: 'quanta',
     title: 'Quanta',
     year: '2024',
     idx: '04',
-    role: 'Full-Stack Contributor',
+    role: 'Full-Stack',
     desc: 'Data dashboard connecting multiple databases and auto-generating charts from queries or AI prompts.',
-    stack: ['Next.js', 'TypeScript', 'FastAPI', 'AI'],
+    stack: ['Next.js', 'FastAPI', 'AI'],
     cover: '/images/quanta.png',
   },
   {
@@ -49,8 +50,8 @@ const projects = [
     title: 'WeCare',
     year: '2024',
     idx: '05',
-    role: 'Full-Stack Developer',
-    desc: 'Final Year Project — MERN stack catering & event management with reservations, menu management, and ordering.',
+    role: 'Full-Stack',
+    desc: 'MERN stack catering & event management — reservations, menu management, and ordering.',
     stack: ['React', 'FastAPI', 'MongoDB'],
     cover: '/images/weCare.png',
   },
@@ -68,41 +69,63 @@ const projects = [
 
 export default function ProjectGrid() {
   return (
-    /* Mobile: 1 col. md: 2 col. lg: 3 col — all 6 projects in a 2×3 grid */
     <div className="grid grid-cols-1 md:grid-cols-2-even lg:grid-cols-3-even gap-px bg-line border border-line">
       {projects.map((p, i) => (
         <motion.div
           key={p.slug}
-          whileHover={{ y: -2 }}
-          transition={{ duration: 0.15 }}
-          className="bg-bg p-6 md:p-8 flex flex-col"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ delay: i * 0.06, duration: 0.4 }}
+          className="bg-bg flex flex-col group"
         >
-          <div className="flex justify-between text-10 tracking-016 uppercase text-ink-mute mb-4">
-            <span>{i === 0 ? '★ featured · ' : ''}{p.year}</span>
-            <span className="text-accent">{p.idx} / 06</span>
-          </div>
-          <h4 className="font-display italic text-32 md:text-40 text-ink leading-none mb-1">{p.title}</h4>
-          <div className="text-10 uppercase tracking-012 text-accent mb-3">{p.role}</div>
-          <p className="text-13 text-ink-mute">{p.desc}</p>
-          <div className="my-5 border border-line overflow-hidden bg-bg-soft" style={{ height: 160 }}>
-            {p.cover ? (
-              <Image src={p.cover} alt={p.title} width={600} height={160} quality={100} className="w-full h-full object-contain" />
-            ) : (
-              <div className="w-full h-full bg-bg-soft flex items-center justify-center text-ink-mute text-11 tracking-012">
-                [ cover image ]
-              </div>
-            )}
-          </div>
-          <div className="flex justify-between items-center mt-auto pt-[14px] border-t border-line">
-            <div className="flex gap-[6px] flex-wrap">
-              {p.stack.map((s) => (
-                <span key={s} className="text-10 border border-line px-[7px] py-[2px] text-ink-mute">{s}</span>
-              ))}
+          <Link href={`/work/${p.slug}`} className="flex flex-col flex-1">
+            {/* Cover image */}
+            <div
+              className="overflow-hidden bg-bg-soft border-b border-line relative"
+              style={{ height: 200 }}
+            >
+              <Image
+                src={p.cover}
+                alt={p.title}
+                fill
+                quality={90}
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              {p.featured && (
+                <div className="absolute top-3 left-3 font-mono text-[9px] tracking-[0.16em] uppercase text-bg bg-accent px-2 py-[3px]">
+                  Featured
+                </div>
+              )}
             </div>
-            <Link href={`/work/${p.slug}`} className="text-accent text-11 tracking-016 uppercase shrink-0 ml-3">
-              View →
-            </Link>
-          </div>
+
+            {/* Card body */}
+            <div className="p-5 flex flex-col flex-1">
+              <div className="flex items-center justify-between mb-[10px]">
+                <span className="font-mono text-[10px] tracking-[0.14em] text-ink-mute">{p.idx} / 06</span>
+                <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-accent">{p.year}</span>
+              </div>
+
+              <h4 className="font-display italic text-26 md:text-30 text-ink leading-none mb-1 group-hover:text-accent transition-colors duration-200">
+                {p.title}
+              </h4>
+              <div className="font-mono text-[10px] tracking-[0.12em] uppercase text-accent mb-3">{p.role}</div>
+              <p className="font-mono text-[11px] text-ink-mute leading-[1.65] flex-1">{p.desc}</p>
+
+              <div className="flex items-center justify-between mt-5 pt-4 border-t border-line">
+                <div className="flex gap-[5px] flex-wrap">
+                  {p.stack.map((s) => (
+                    <span key={s} className="font-mono text-[9px] border border-line px-[6px] py-[3px] text-ink-mute">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <span className="font-mono text-[10px] text-ink-mute group-hover:text-accent transition-colors shrink-0 ml-3">
+                  View →
+                </span>
+              </div>
+            </div>
+          </Link>
         </motion.div>
       ))}
     </div>

@@ -25,11 +25,11 @@ const projects: Record<string, Project> = {
   'sba-loans': {
     title: 'SBA Loans',
     tagline: 'A platform facilitating Small Business Administration loan workflows.',
-    year: '2024',
+    year: '2025–2026',
     role: 'Frontend Developer',
     url: 'https://partner.sbaloanshq.com',
     urlLabel: 'Live site →',
-    cover: '/images/sbaloansDashboard.png',
+    cover: '/images/loanbridge.png',
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'REST API'],
     problem: 'Loan application flows were fragmented, with no unified frontend for applicants and partners managing SBA loan processes.',
     roleDesc: 'Built and structured the complete frontend. Owned all UI across loan application, document upload, and management flows.',
@@ -58,7 +58,7 @@ const projects: Record<string, Project> = {
       stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'REST API', 'JWT', 'S3'],
       stats: [
         { label: 'Role',     value: 'Frontend' },
-        { label: 'Year',     value: '2024' },
+        { label: 'Year',     value: '2025–2026' },
         { label: 'Type',     value: 'Production' },
         { label: 'Nodes',    value: '6' },
       ],
@@ -68,9 +68,9 @@ const projects: Record<string, Project> = {
   'swerv': {
     title: 'Swerv',
     tagline: 'UI elevation and interface consistency for an automotive product.',
-    year: '2024',
+    year: '2025',
     role: 'Frontend Developer',
-    cover: '/images/swervDashboard.png',
+    cover: '/images/autocore-dashboard.png',
     stack: ['React', 'TypeScript', 'Tailwind CSS', 'REST API'],
     problem: 'Interface inconsistency and poor component cohesion were reducing the product\'s visual quality and usability.',
     roleDesc: 'Elevated the product\'s visual quality and interface consistency. Refined component design, interaction patterns, and overall look and feel.',
@@ -97,7 +97,7 @@ const projects: Record<string, Project> = {
       stack: ['React', 'TypeScript', 'Tailwind CSS', 'REST API', 'CDN'],
       stats: [
         { label: 'Role',  value: 'Frontend' },
-        { label: 'Year',  value: '2024' },
+        { label: 'Year',  value: '2025' },
         { label: 'Type',  value: 'Internal' },
         { label: 'Nodes', value: '5' },
       ],
@@ -107,9 +107,9 @@ const projects: Record<string, Project> = {
   'nicgs': {
     title: 'NICGS',
     tagline: 'A complete frontend overhaul — rebuilt from scratch, modernised and responsive.',
-    year: '2024',
+    year: '2025',
     role: 'Frontend Developer',
-    cover: '/images/nicgs.png',
+    cover: '/images/noor-cart.png',
     stack: ['Next.js', 'Tailwind CSS', 'CMS API', 'REST API'],
     problem: 'The existing website had an outdated design language, poor navigation structure, and no responsiveness across devices.',
     roleDesc: 'Led the complete UI rebuild. Redesigned all pages from the ground up, restructured navigation, and ensured a performant, responsive experience across all devices.',
@@ -138,7 +138,7 @@ const projects: Record<string, Project> = {
       stack: ['Next.js', 'Tailwind CSS', 'CMS API', 'REST API', 'Image CDN'],
       stats: [
         { label: 'Role',  value: 'Frontend' },
-        { label: 'Year',  value: '2024' },
+        { label: 'Year',  value: '2025' },
         { label: 'Type',  value: 'Revamp' },
         { label: 'Nodes', value: '6' },
       ],
@@ -295,30 +295,30 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       {/* Hero */}
       <section className="grid-bg grid grid-cols-1 lg:grid-cols-case-hero gap-8 lg:gap-12 items-end px-5 md:px-8 py-12 md:py-[60px] border-b border-line">
         <div>
-          <div className="text-11 uppercase tracking-012 text-ink-mute mb-4">
-            {'// work'} / {project.year} / <span className="text-accent">{slug}</span>
+          <div className="text-10 uppercase tracking-[0.14em] text-ink-mute mb-4 font-mono">
+            Work / {project.year} / <span className="text-accent">{slug}</span>
           </div>
           <h1
-            className="font-display italic leading-092 tracking-tighter mb-[14px] text-ink"
+            className="font-display leading-[0.88] tracking-[-0.03em] mb-4 text-ink"
             style={{ fontSize: 'clamp(48px, 8vw, 108px)' }}
           >
             {project.title}.
           </h1>
-          <p className="font-display text-18 md:text-22 max-w-520 text-ink-mute mb-5">{project.tagline}</p>
-          <div className="flex items-center gap-4 flex-wrap">
-            <span className="text-10 uppercase tracking-012 text-accent">{project.role}</span>
+          <p className="font-display italic text-18 md:text-22 max-w-[520px] text-ink-mute mb-6 leading-[1.45]">{project.tagline}</p>
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="text-10 uppercase tracking-[0.12em] text-accent font-mono">{project.role}</span>
             {project.url && (
               <a
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-10 uppercase tracking-012 text-ink-mute border border-line px-[10px] py-[4px] hover:border-accent hover:text-accent transition-colors"
+                className="text-10 uppercase tracking-[0.1em] text-ink-mute border border-line px-[10px] py-[4px] hover:border-accent hover:text-accent transition-colors font-mono"
               >
                 {project.urlLabel ?? 'Visit →'}
               </a>
             )}
             {!project.url && (
-              <span className="text-10 uppercase tracking-012 text-ink-mute border border-line px-[10px] py-[4px]">
+              <span className="text-10 uppercase tracking-[0.1em] text-ink-mute border border-line px-[10px] py-[4px] font-mono">
                 Private / NDA
               </span>
             )}
@@ -327,9 +327,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
         {/* Cover frame */}
         <div className="h-64 lg:h-120 border border-line-strong bg-bg-soft p-[14px] flex flex-col">
-          <div className="flex items-center gap-2 pb-[10px] border-b border-line mb-[10px] text-10 tracking-01 text-ink-mute">
+          <div className="flex items-center gap-2 pb-[10px] border-b border-line mb-[10px] font-mono text-[10px] tracking-[0.12em] text-ink-mute">
             {[0, 1, 2].map((c) => (
-              <span key={c} className="w-2 h-2 rounded-full border border-line-strong inline-block" />
+              <span key={c} className="w-[6px] h-[6px] rounded-full border border-line-strong inline-block" />
             ))}
             <span className="ml-auto">{slug}.muhammadali.dev</span>
           </div>
@@ -337,7 +337,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             {project.cover ? (
               <Image src={project.cover} alt={project.title} width={1200} height={480} quality={100} className="w-full h-full object-cover object-top" />
             ) : (
-              <div className="w-full h-full bg-bg flex items-center justify-center text-ink-mute text-11 tracking-012">
+              <div className="w-full h-full bg-bg flex items-center justify-center text-ink-mute font-mono text-[11px]">
                 [ cover image ]
               </div>
             )}
@@ -347,7 +347,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* Overview */}
       <section className="px-5 md:px-8 py-14 md:py-20">
-        <SectionHeader module="// overview" title="The brief." meta="03 lenses" />
+        <SectionHeader label="Overview" title="The brief." meta="3 lenses" />
         <div className="grid grid-cols-1 md:grid-cols-3-even gap-px bg-line border border-line">
           {[
             { label: 'Problem', text: project.problem  },
@@ -355,10 +355,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             { label: 'Stack',   text: project.stackDesc },
           ].map((cell) => (
             <div key={cell.label} className="bg-bg p-6 md:p-8">
-              <h4 className="font-mono not-italic text-11 tracking-018 uppercase text-accent mb-[14px]">
+              <h4 className="font-mono text-10 tracking-[0.16em] uppercase text-accent mb-[14px]">
                 {cell.label}
               </h4>
-              <p className="font-display italic text-18 md:text-20 leading-145 text-ink">{cell.text}</p>
+              <p className="font-display italic text-18 md:text-20 leading-[1.5] text-ink">{cell.text}</p>
             </div>
           ))}
         </div>
@@ -366,7 +366,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* System Topology */}
       <section className="px-5 md:px-8 py-14 md:py-20">
-        <SectionHeader module="// architecture" title="System topology." meta="fig.01" />
+        <SectionHeader label="Architecture" title="System topology." meta="fig.01" />
         <div className="overflow-x-auto">
           <div className="min-w-[720px]">
             <TopologyDiagram

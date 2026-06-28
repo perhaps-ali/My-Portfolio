@@ -1,46 +1,74 @@
 'use client'
 import { motion } from 'framer-motion'
 
-const cards = [
+const modules = [
   {
-    num: '01', title: 'Frontend',
-    items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+    id: 'frontend',
+    title: 'Frontend',
+    level: 90,
+    tags: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Vue.js', 'HTML / CSS'],
   },
   {
-    num: '02', title: 'Backend & APIs',
-    items: ['FastAPI', 'Django REST', 'RESTful API', 'Auth / JWT'],
+    id: 'backend',
+    title: 'Backend & APIs',
+    level: 75,
+    tags: ['FastAPI', 'Django REST', 'Node.js', 'Express', 'REST', 'JWT / Auth', 'OpenAPI'],
   },
   {
-    num: '03', title: 'Databases',
-    items: ['MySQL', 'PL/SQL', 'MongoDB', 'Mongoose'],
+    id: 'data',
+    title: 'Databases',
+    level: 70,
+    tags: ['PostgreSQL', 'MySQL', 'MongoDB', 'Mongoose', 'PL/SQL'],
   },
   {
-    num: '04', title: 'Tooling',
-    items: ['Git', 'GitHub', 'Bootstrap', 'Linux'],
+    id: 'tooling',
+    title: 'Tooling & Design',
+    level: 80,
+    tags: ['Git', 'GitHub', 'Linux', 'Figma', 'Bootstrap', 'VS Code'],
   },
 ]
 
 export default function SkillGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2-even gap-px bg-line border border-line">
-      {cards.map((card, i) => (
+      {modules.map((mod, i) => (
         <motion.div
-          key={card.num}
-          initial={{ opacity: 0, y: 8 }}
+          key={mod.id}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ delay: i * 0.08, duration: 0.4, ease: 'easeOut' }}
-          className="bg-bg px-6 md:px-8 py-7"
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ delay: i * 0.08, duration: 0.45 }}
+          className="bg-bg p-6 md:p-7 flex flex-col gap-5 group hover:bg-bg-soft transition-colors duration-200"
         >
-          <div className="flex justify-between items-baseline border-b border-line pb-[14px] mb-[18px]">
-            <h3 className="font-display italic text-24 md:text-30 text-ink">{card.title}</h3>
-            <span className="text-11 text-accent tracking-005">[{card.num} / 04]</span>
+          {/* Header row */}
+          <div className="flex items-center justify-between">
+            <h3 className="font-display italic text-22 md:text-26 text-ink leading-none group-hover:text-accent transition-colors duration-200">
+              {mod.title}
+            </h3>
+            <span className="font-mono text-[10px] text-accent">{mod.level}%</span>
           </div>
-          <div className="grid grid-cols-2-even gap-x-4 gap-y-[6px]">
-            {card.items.map((item) => (
-              <div key={item} className="text-12 py-[5px] border-b border-line text-ink">
-                {item}
-              </div>
+
+          {/* Proficiency bar */}
+          <div className="h-px bg-line relative overflow-hidden">
+            <motion.div
+              className="absolute inset-y-0 left-0"
+              style={{ background: 'var(--accent)', height: '1px' }}
+              initial={{ width: 0 }}
+              whileInView={{ width: `${mod.level}%` }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 + 0.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-[6px]">
+            {mod.tags.map((tag) => (
+              <span
+                key={tag}
+                className="font-mono text-[10px] px-[8px] py-[4px] border border-line text-ink-mute group-hover:border-line-strong transition-colors duration-200"
+              >
+                {tag}
+              </span>
             ))}
           </div>
         </motion.div>
