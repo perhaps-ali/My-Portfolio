@@ -1,128 +1,211 @@
 'use client'
-import { useRef, useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import {
+  SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiFramer,
+  SiJsonwebtokens, SiFastapi, SiDjango, SiOpenapiinitiative,
+  SiPostgresql, SiMongodb, SiMysql, SiMongoose,
+  SiAnthropic, SiOpenai, SiGoogle,
+} from 'react-icons/si'
+import { IconType } from 'react-icons'
+
+// Map tech name → { icon, brand color }
+const ICON_MAP: Record<string, { Icon: IconType; color: string }> = {
+  'Next.js':       { Icon: SiNextdotjs,        color: '#ffffff' },
+  'React':         { Icon: SiReact,            color: '#61DAFB' },
+  'TypeScript':    { Icon: SiTypescript,       color: '#3178C6' },
+  'Tailwind':      { Icon: SiTailwindcss,      color: '#06B6D4' },
+  'Framer Motion': { Icon: SiFramer,           color: '#BB4AE8' },
+  'JWT':           { Icon: SiJsonwebtokens,    color: '#FB015B' },
+  'FastAPI':       { Icon: SiFastapi,          color: '#009688' },
+  'Django REST':   { Icon: SiDjango,           color: '#092E20' },
+  'OpenAPI':       { Icon: SiOpenapiinitiative,color: '#6BA539' },
+  'PostgreSQL':    { Icon: SiPostgresql,       color: '#4169E1' },
+  'MongoDB':       { Icon: SiMongodb,          color: '#47A248' },
+  'MySQL':         { Icon: SiMysql,            color: '#4479A1' },
+  'Mongoose':      { Icon: SiMongoose,         color: '#880000' },
+  'Anthropic':     { Icon: SiAnthropic,        color: '#D4A574' },
+  'OpenAI':        { Icon: SiOpenai,           color: '#ffffff' },
+  'Gemini':        { Icon: SiGoogle,           color: '#4285F4' },
+}
 
 const cells = [
-  { label: 'FRONTEND', sub: 'React · TS · SSR',       accent: true  },
-  { label: 'EDGE',     sub: 'Workers · Auth',          accent: false },
-  { label: 'API',      sub: 'FastAPI · DRF · REST',    accent: false },
-  { label: 'DATA',     sub: 'Postgres · MongoDB',      accent: false },
-  { label: 'AI',       sub: 'OpenAI · RAG · Agents',  accent: true  },
+  { label: 'FRONTEND', accent: true,  items: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Framer Motion'] },
+  { label: 'EDGE',     accent: false, items: ['Middleware', 'JWT', 'Auth', 'CORS', 'Sessions'] },
+  { label: 'API',      accent: false, items: ['FastAPI', 'Django REST', 'REST', 'OpenAPI', 'Webhooks'] },
+  { label: 'DATA',     accent: false, items: ['PostgreSQL', 'MongoDB', 'MySQL', 'Mongoose', 'PL/SQL'] },
+  { label: 'AI',       accent: true,  items: ['Anthropic', 'OpenAI', 'Gemini', 'RAG', 'Agents'] },
 ]
+
+const ITEM_DELAY = 0.12
+const CELL_GAP   = 0.08
+
+function getCellStartDelay(cellIndex: number) {
+  let t = 0.5
+  for (let c = 0; c < cellIndex; c++) {
+    t += cells[c].items.length * ITEM_DELAY + CELL_GAP
+  }
+  return t
+}
+
+function TechIcon({ name }: { name: string }) {
+  const entry = ICON_MAP[name]
+  if (entry) {
+    return (
+      <entry.Icon
+        size={13}
+        style={{ color: entry.color, flexShrink: 0 }}
+      />
+    )
+  }
+  // Fallback glyph for items without a brand icon
+  return (
+    <span className="font-mono text-[10px] shrink-0 leading-none" style={{ color: 'var(--line-strong)' }}>
+      ›
+    </span>
+  )
+}
 
 export default function SchematicStrip() {
   const [hovered, setHovered] = useState<number | null>(null)
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const [perimeter, setPerimeter] = useState(0)
-
-  useEffect(() => {
-    const el = wrapRef.current
-    if (!el) return
-    const update = () => {
-      const { width, height } = el.getBoundingClientRect()
-      setPerimeter(Math.round((width + height) * 2))
-    }
-    update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [])
 
   return (
-    <div className="mt-12">
-      <div ref={wrapRef} className="relative grid grid-cols-3 sm:grid-cols-5 gap-px bg-line">
+    <div className="mt-10 -mx-5 md:-mx-8">
+      {/* Label bar */}
+      <div className="flex items-center gap-3 px-5 md:px-8 py-[9px] border-t border-line bg-bg-soft">
+        <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-ink-mute">stack.modules</span>
+        <div className="flex-1 h-px bg-line" />
+        <motion.span
+          className="font-mono text-[9px] tracking-[0.16em] text-accent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          v6.2026
+        </motion.span>
+      </div>
 
-        {/* Animated SVG border */}
-        {perimeter > 0 && (
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible', zIndex: 10 }}>
-            <rect x="0.5" y="0.5" width="calc(100% - 1px)" height="calc(100% - 1px)"
-              fill="none" stroke="rgba(245,158,11,0.15)" strokeWidth="1" strokeDasharray="8 8" />
-            <rect x="0.5" y="0.5" width="calc(100% - 1px)" height="calc(100% - 1px)"
-              fill="none" stroke="rgba(245,158,11,0.9)" strokeWidth="1.5" strokeDasharray="8 80"
-              style={{ strokeDashoffset: 0, animation: 'dash-flow-border 1.2s linear infinite' }} />
-          </svg>
-        )}
+      {/* Mobile: 2-col grid, last cell (AI) spans full width. sm+: all 5 in one row */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 border-t border-line">
+        {cells.map((c, ci) => {
+          const isHov = hovered === ci
+          const cellStart = getCellStartDelay(ci)
+          const isLast = ci === cells.length - 1
 
-        {cells.map((c, i) => {
-          const isHov = hovered === i
           return (
             <div
               key={c.label}
-              onMouseEnter={() => setHovered(i)}
+              onMouseEnter={() => setHovered(ci)}
               onMouseLeave={() => setHovered(null)}
-              className="relative bg-bg-soft flex flex-col min-h-[100px] sm:min-h-[130px] cursor-default select-none overflow-hidden"
+              className={[
+                'relative flex flex-col cursor-default select-none overflow-hidden',
+                'border-b sm:border-b-0 border-r border-line transition-colors duration-150',
+                ci % 2 === 1 ? 'border-r-0 sm:border-r' : '',
+                isLast ? 'col-span-2 sm:col-span-1 border-r-0 sm:border-r-0' : '',
+              ].join(' ')}
+              style={{ background: isHov ? 'var(--fill-2)' : 'var(--bg-soft)' }}
             >
-              {/* Radial glow from center on hover */}
-              <AnimatePresence>
-                {isHov && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.6 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.25, ease: 'easeOut' }}
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: 'radial-gradient(ellipse at 50% 60%, rgba(245,158,11,0.13) 0%, rgba(245,158,11,0.04) 50%, transparent 75%)',
-                    }}
-                  />
+              {/* Top accent bar */}
+              <motion.div
+                className="absolute top-0 left-0 right-0 h-[2px]"
+                style={{
+                  background: 'linear-gradient(to right, var(--accent), transparent)',
+                  opacity: c.accent ? 0.3 : 0,
+                }}
+                animate={{ opacity: isHov ? 1 : c.accent ? 0.3 : 0 }}
+                transition={{ duration: 0.15 }}
+              />
+
+              <div className="p-4 sm:p-5 sm:pb-6 flex flex-col flex-1 min-h-[130px] sm:min-h-[160px]">
+                {/* Label + index */}
+                <motion.div
+                  className="flex items-center justify-between mb-3 sm:mb-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: cellStart - 0.05, duration: 0.2 }}
+                >
+                  <b
+                    className="font-mono text-[11px] sm:text-[12px] tracking-[0.1em] transition-colors duration-150"
+                    style={{ color: c.accent || isHov ? 'var(--accent)' : 'var(--ink-mute)' }}
+                  >
+                    {c.label}
+                  </b>
+                  <span className="font-mono text-[9px] text-ink-mute opacity-30">
+                    {String(ci + 1).padStart(2, '0')}
+                  </span>
+                </motion.div>
+
+                {/* Items */}
+                {isLast ? (
+                  /* AI cell on mobile: horizontal tag pills with icons */
+                  <div className="flex flex-wrap gap-[6px] sm:flex-col sm:gap-[5px] flex-1">
+                    {c.items.map((item, ii) => (
+                      <motion.span
+                        key={item}
+                        className="sm:hidden inline-flex items-center gap-[5px] font-mono text-[11px] px-2 py-[3px] border border-line transition-colors duration-150"
+                        style={{ color: isHov ? 'var(--ink)' : 'var(--ink-mute)', borderColor: isHov ? 'var(--line-strong)' : 'var(--line)' }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: cellStart + ii * ITEM_DELAY, duration: 0.18 }}
+                      >
+                        <TechIcon name={item} />
+                        {item}
+                      </motion.span>
+                    ))}
+                    {/* sm+ normal column */}
+                    {c.items.map((item, ii) => (
+                      <motion.div
+                        key={`sm-${item}`}
+                        className="hidden sm:flex items-center gap-[7px]"
+                        initial={{ opacity: 0, x: -6 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: cellStart + ii * ITEM_DELAY, duration: 0.18, ease: 'easeOut' }}
+                      >
+                        <TechIcon name={item} />
+                        <span className="font-mono text-[12px] transition-colors duration-150" style={{ color: isHov ? 'var(--ink)' : 'var(--ink-mute)' }}>{item}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Regular cells */
+                  <div className="flex flex-col gap-[6px] flex-1">
+                    {c.items.map((item, ii) => (
+                      <motion.div
+                        key={item}
+                        className="flex items-center gap-[7px]"
+                        initial={{ opacity: 0, x: -6 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: cellStart + ii * ITEM_DELAY, duration: 0.18, ease: 'easeOut' }}
+                      >
+                        <TechIcon name={item} />
+                        <span
+                          className="font-mono text-[11px] sm:text-[12px] transition-colors duration-150"
+                          style={{ color: isHov ? 'var(--ink)' : 'var(--ink-mute)' }}
+                        >
+                          {item}
+                        </span>
+                      </motion.div>
+                    ))}
+
+                    <motion.span
+                      className="inline-block w-[5px] h-[11px] ml-[1px]"
+                      style={{ background: 'var(--accent)' }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0, 1, 1, 0] }}
+                      transition={{ delay: cellStart + c.items.length * ITEM_DELAY, duration: 1.0, times: [0, 0.15, 0.75, 1], ease: 'easeInOut' }}
+                    />
+                  </div>
                 )}
-              </AnimatePresence>
-
-              {/* Top accent bar sweeps in */}
-              <AnimatePresence>
-                {isHov && (
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    exit={{ scaleX: 0 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
-                    className="absolute top-0 left-0 right-0 h-[2px] origin-left"
-                    style={{ background: 'linear-gradient(to right, var(--accent), transparent)' }}
-                  />
-                )}
-              </AnimatePresence>
-
-              {/* Content */}
-              <div className="relative z-10 p-4 flex flex-col flex-1">
-                {/* Spinning corner diamond */}
-                <motion.span
-                  className="absolute top-2 right-2 text-[8px]"
-                  style={{ color: 'var(--accent)' }}
-                  animate={{ opacity: isHov ? 1 : 0.2, rotate: isHov ? 180 : 0 }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                >
-                  ◆
-                </motion.span>
-
-                <motion.b
-                  className="text-11 tracking-01 mb-2 font-mono block"
-                  animate={{
-                    color: c.accent || isHov ? 'var(--accent)' : 'var(--ink-mute)',
-                    y: isHov ? -1 : 0,
-                  }}
-                  transition={{ duration: 0.15 }}
-                >
-                  {c.label}
-                </motion.b>
-
-                <motion.span
-                  className="text-10 leading-relaxed"
-                  animate={{
-                    color: isHov ? 'var(--ink)' : 'rgba(138,134,128,0.6)',
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {c.sub}
-                </motion.span>
-
-                {/* Index */}
-                <motion.span
-                  className="absolute bottom-3 left-3 text-[9px] font-mono"
-                  animate={{ color: isHov ? 'var(--accent)' : 'var(--line-strong)' }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </motion.span>
               </div>
+
+              {/* Bottom scan line on hover */}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-px origin-left"
+                style={{ background: 'linear-gradient(to right, var(--accent), transparent)' }}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: isHov ? 1 : 0 }}
+                transition={{ duration: 0.2 }}
+              />
             </div>
           )
         })}

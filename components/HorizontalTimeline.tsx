@@ -38,70 +38,70 @@ export default function HorizontalTimeline() {
 
   return (
     <div>
-      {/* Timeline line with animated fill */}
-      <div className="hidden md:block h-px bg-line-strong relative mb-6 overflow-hidden">
-        <motion.div
-          className="absolute inset-y-0 left-0 bg-accent"
-          initial={{ width: 0 }}
-          whileInView={{ width: '25%' }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: 'easeOut', delay: 0.3 }}
-        />
-        {[0, 25, 50, 75, 100].map((pct) => (
-          <div
-            key={pct}
-            className="absolute w-px h-[7px] bg-line-strong"
-            style={{ top: -3, left: `${pct}%` }}
+      {/* Track with label + animated fill */}
+      <div className="hidden md:block mb-8">
+        <div className="flex justify-between mb-1">
+          <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-ink-mute">2022</span>
+          <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-accent">now</span>
+        </div>
+        <div className="h-px bg-line-strong relative overflow-hidden">
+          <motion.div
+            className="absolute inset-y-0 right-0 bg-accent"
+            initial={{ width: 0 }}
+            whileInView={{ width: '25%' }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           />
-        ))}
+          {/* Tick marks at each column boundary */}
+          {[0, 25, 50, 75, 100].map((pct) => (
+            <div
+              key={pct}
+              className="absolute w-px h-[6px] bg-line-strong"
+              style={{ top: -2.5, left: `${pct}%` }}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="flex flex-col gap-6 md:grid md:grid-cols-4-even md:gap-8">
-        {nodes.map((n, i) => {
-          const isHov = hovered === i
-          return (
-            <motion.div
-              key={n.yr}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ delay: i * 0.12, duration: 0.4, ease: 'easeOut' }}
-              onHoverStart={() => setHovered(i)}
-              onHoverEnd={() => setHovered(null)}
-              className="pt-4 pl-3 md:pl-0 cursor-default relative"
-              style={{ borderTop: `1px solid ${isHov ? 'var(--accent)' : n.current ? 'var(--accent)' : 'var(--line)'}`, transition: 'border-color 0.2s' }}
-            >
-              {/* Glow dot on top border */}
-              {(isHov || n.current) && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-[5px] left-0 w-[9px] h-[9px] rounded-full border-2 border-accent bg-bg"
-                />
-              )}
-
+      <div className="border border-line md:border-none">
+        <div className="flex flex-col md:grid md:grid-cols-4-even">
+          {nodes.map((n, i) => {
+            const isHov = hovered === i
+            const active = n.current || isHov
+            return (
               <motion.div
-                animate={{ y: isHov ? -2 : 0 }}
-                transition={{ duration: 0.15 }}
+                key={n.yr}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ delay: i * 0.09, duration: 0.4 }}
+                onHoverStart={() => setHovered(i)}
+                onHoverEnd={() => setHovered(null)}
+                className="cursor-default relative p-4 md:p-0 md:pr-6 border-b border-line last:border-b-0 md:border-b-0"
               >
-                <div className="text-11 tracking-016 text-accent mb-2 uppercase">{n.yr}</div>
+                {/* Top border indicator — desktop only */}
                 <div
-                  className="font-display italic text-22 md:text-24 leading-11 mb-[6px]"
-                  style={{ color: isHov ? 'var(--ink)' : 'var(--ink)', transition: 'color 0.15s' }}
-                >
-                  {n.role}
-                </div>
-                <div
-                  className="text-12 mb-[10px] font-mono"
-                  style={{ color: isHov ? 'var(--accent)' : 'var(--ink)', transition: 'color 0.2s' }}
-                >
-                  {n.co}
-                </div>
-                <div className="text-11 text-ink-mute leading-relaxed">{n.desc}</div>
+                  className="hidden md:block h-[2px] mb-5 transition-colors duration-200"
+                  style={{ background: active ? 'var(--accent)' : 'var(--line-strong)' }}
+                />
+
+                <motion.div animate={{ y: isHov ? -2 : 0 }} transition={{ duration: 0.15 }}>
+                  <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-accent mb-2">{n.yr}</div>
+                  <div className="font-display italic text-20 md:text-22 leading-[1.15] mb-[5px] text-ink">
+                    {n.role}
+                  </div>
+                  <div
+                    className="font-mono text-11 mb-[10px] transition-colors duration-200"
+                    style={{ color: isHov ? 'var(--accent)' : 'var(--ink-mute)' }}
+                  >
+                    {n.co}
+                  </div>
+                  <div className="font-mono text-[11px] text-ink-mute leading-[1.6]">{n.desc}</div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     </div>
   )

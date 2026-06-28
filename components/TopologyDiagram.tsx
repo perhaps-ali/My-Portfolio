@@ -54,27 +54,25 @@ export default function TopologyDiagram({
     return [{ d: `M${a.left + NODE_W / 2},${a.top + NODE_H} L${b.left + NODE_W / 2},${b.top}`, id: `${from}-${to}`, isActive }]
   })
 
-  const hoveredNode = hovered ? map[hovered] : null
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] border border-line-strong bg-bg-soft">
 
       {/* ── Diagram canvas ── */}
       <div className="relative grid-bg overflow-hidden" style={{ height }}>
-        <span className="absolute top-[14px] left-[14px] text-10 uppercase tracking-01 text-ink-mute z-10">
+        <span className="absolute top-[14px] left-[14px] font-mono text-[10px] uppercase tracking-[0.1em] text-ink-mute z-10">
           {figLabel}
         </span>
-        <span className="absolute top-[14px] right-[14px] text-10 uppercase tracking-01 text-accent z-10">
+        <span className="absolute top-[14px] right-[14px] font-mono text-[10px] uppercase tracking-[0.1em] text-accent z-10">
           {version}
         </span>
         <span
-          className="absolute text-10 uppercase tracking-01 text-ink-mute z-10"
+          className="absolute font-mono text-[10px] uppercase tracking-[0.1em] text-ink-mute z-10"
           style={{ top: '50%', left: 10, transform: 'translateY(-50%) rotate(-90deg)', transformOrigin: 'center' }}
         >
           {axisY}
         </span>
         <span
-          className="absolute bottom-[14px] text-10 uppercase tracking-01 text-ink-mute z-10"
+          className="absolute bottom-[14px] font-mono text-[10px] uppercase tracking-[0.1em] text-ink-mute z-10"
           style={{ left: '50%', transform: 'translateX(-50%)' }}
         >
           {axisX}
@@ -99,10 +97,7 @@ export default function TopologyDiagram({
               strokeDasharray="5 5"
               fill="none"
               markerEnd={isActive ? 'url(#topo-arrow)' : 'url(#topo-arrow-dim)'}
-              style={{
-                strokeDashoffset: 0,
-                animation: 'dash-flow 1.4s linear infinite',
-              }}
+              style={{ animation: 'dash-flow 1.4s linear infinite' }}
             />
           ))}
         </svg>
@@ -122,9 +117,7 @@ export default function TopologyDiagram({
                 width: NODE_W,
                 height: NODE_H,
                 border: `1px solid ${isHov ? 'var(--accent)' : n.accent ? 'var(--accent)' : 'var(--line-strong)'}`,
-                background: isHov
-                  ? 'rgba(245,158,11,0.08)'
-                  : 'rgba(0,0,0,0.6)',
+                background: isHov ? 'rgba(245,158,11,0.08)' : 'rgba(0,0,0,0.6)',
                 color: isDim ? 'var(--ink-mute)' : n.accent || isHov ? 'var(--accent)' : 'var(--ink)',
                 transform: isHov ? 'scale(1.06)' : 'scale(1)',
                 boxShadow: isHov ? '0 0 20px rgba(245,158,11,0.15)' : 'none',
@@ -132,8 +125,8 @@ export default function TopologyDiagram({
                 zIndex: isHov ? 10 : 1,
               }}
             >
-              <div className="text-11 font-mono leading-tight">{n.label}</div>
-              <div className="text-[9px] uppercase tracking-01 text-ink-mute mt-[5px] leading-tight">
+              <div className="font-mono text-[11px] leading-tight">{n.label}</div>
+              <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-ink-mute mt-[5px] leading-tight">
                 {n.sub}
               </div>
             </div>
@@ -141,37 +134,45 @@ export default function TopologyDiagram({
         })}
       </div>
 
-      {/* ── Right info panel ── */}
+      {/* ── Right info panel — always visible, no hover-gated content ── */}
       <div className="border-t lg:border-t-0 lg:border-l border-line flex flex-col">
 
-        {/* Active node detail — fixed height so hover never resizes the panel */}
-        <div className="px-5 py-5 border-b border-line overflow-hidden" style={{ height: 130 }}>
-          {hoveredNode ? (
-            <>
-              <div className="text-10 uppercase tracking-018 text-accent mb-2">
-                ● {hoveredNode.label}
-              </div>
-              <div className="text-11 text-ink-mute uppercase tracking-01 mb-3">{hoveredNode.sub}</div>
-              {hoveredNode.desc && (
-                <p className="text-11 text-ink leading-relaxed line-clamp-2">{hoveredNode.desc}</p>
-              )}
-              <div className="mt-2 text-[9px] uppercase tracking-018 text-ink-mute truncate">
-                connected to →{' '}
-                {edges
-                  .filter(e => e.from === hoveredNode.id || e.to === hoveredNode.id)
-                  .map(e => (e.from === hoveredNode.id ? map[e.to]?.label : map[e.from]?.label))
-                  .filter(Boolean)
-                  .join(' · ')}
-              </div>
-            </>
-          ) : (
-            <div className="flex flex-col justify-center h-full">
-              <div className="text-10 uppercase tracking-018 text-ink-mute mb-2">// hover a node</div>
-              <div className="text-11 text-ink-mute leading-relaxed">
-                Inspect each layer of the system by hovering a node.
-              </div>
-            </div>
-          )}
+        {/* Node list — all visible, active one highlighted */}
+        <div className="px-5 py-4 border-b border-line flex-1">
+          <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-ink-mute mb-3">nodes</div>
+          <div className="flex flex-col gap-[2px]">
+            {nodes.map(n => {
+              const isHov = hovered === n.id
+              const connections = edges
+                .filter(e => e.from === n.id || e.to === n.id)
+                .map(e => (e.from === n.id ? map[e.to]?.label : map[e.from]?.label))
+                .filter(Boolean)
+              return (
+                <div
+                  key={n.id}
+                  onMouseEnter={() => setHovered(n.id)}
+                  onMouseLeave={() => setHovered(null)}
+                  className="py-[7px] border-b border-line last:border-b-0 cursor-default transition-colors duration-150"
+                  style={{ paddingLeft: isHov ? 6 : 0, transition: 'padding-left 0.15s' }}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className="font-mono text-[11px] transition-colors duration-150"
+                      style={{ color: n.accent || isHov ? 'var(--accent)' : 'var(--ink)' }}
+                    >
+                      {n.label}
+                    </span>
+                    <span className="font-mono text-[9px] text-ink-mute shrink-0">{n.sub}</span>
+                  </div>
+                  {isHov && connections.length > 0 && (
+                    <div className="font-mono text-[9px] text-ink-mute mt-[3px]">
+                      ↳ {connections.join(' · ')}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
         </div>
 
         {/* Stats */}
@@ -179,8 +180,8 @@ export default function TopologyDiagram({
           <div className="px-5 py-4 border-b border-line grid grid-cols-2 gap-3">
             {stats.map(s => (
               <div key={s.label}>
-                <div className="text-[9px] uppercase tracking-018 text-ink-mute mb-[3px]">{s.label}</div>
-                <div className="text-13 font-mono text-accent">{s.value}</div>
+                <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink-mute mb-[3px]">{s.label}</div>
+                <div className="font-mono text-[13px] text-accent">{s.value}</div>
               </div>
             ))}
           </div>
@@ -189,12 +190,12 @@ export default function TopologyDiagram({
         {/* Stack pills */}
         {stack.length > 0 && (
           <div className="px-5 py-4">
-            <div className="text-[9px] uppercase tracking-018 text-ink-mute mb-3">// tech stack</div>
-            <div className="flex flex-wrap gap-[6px]">
+            <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-mute mb-3">stack</div>
+            <div className="flex flex-wrap gap-[5px]">
               {stack.map(s => (
                 <span
                   key={s}
-                  className="text-[9px] uppercase tracking-01 px-2 py-[4px] border border-line text-ink-mute"
+                  className="font-mono text-[9px] uppercase tracking-[0.08em] px-2 py-[4px] border border-line text-ink-mute"
                 >
                   {s}
                 </span>
@@ -203,8 +204,8 @@ export default function TopologyDiagram({
           </div>
         )}
 
-        {/* Node count */}
-        <div className="mt-auto px-5 py-3 border-t border-line flex justify-between text-[9px] uppercase tracking-018 text-ink-mute">
+        {/* Footer */}
+        <div className="mt-auto px-5 py-3 border-t border-line flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-ink-mute">
           <span>{nodes.length} nodes</span>
           <span>{edges.length} edges</span>
         </div>

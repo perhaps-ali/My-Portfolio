@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useAccentCycle } from './AccentCycler'
 import SearchModal from './SearchModal'
 import ContactOverlay from './ContactOverlay'
 
@@ -19,9 +18,7 @@ export default function Nav() {
   const [menuOpen,    setMenuOpen]    = useState(false)
   const [searchOpen,  setSearchOpen]  = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
-  const cycle = useAccentCycle()
 
-  // ⌘K / Ctrl+K global shortcut
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -38,30 +35,28 @@ export default function Nav() {
       <nav
         className="sticky top-0 z-50 grid items-center px-5 md:px-8 py-[14px] border-b border-line backdrop-blur-12
           grid-cols-[auto_auto] md:grid-cols-nav md:gap-8"
-        style={{ background: 'rgba(10,10,10,0.85)' }}
+        style={{ background: 'rgba(10,10,10,0.88)' }}
       >
         {/* Brand */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={cycle}
-            className="w-3 h-3 shrink-0 border-0 cursor-pointer bg-accent"
-            style={{ transition: 'background 0.25s ease' }}
-            aria-label="Cycle accent color"
-          />
-          <span className="text-12 font-semibold text-ink tracking-005">muhammadali</span>
-          <span className="text-12 text-ink-mute hidden sm:inline">/v6.2026</span>
+        <div className="flex items-center gap-[10px]">
+          <div className="flex items-center gap-[3px]">
+            <span className="glow-pulse w-[7px] h-[7px] rounded-full block" style={{ backgroundColor: 'var(--accent)' }} />
+          </div>
+          <Link href="/" className="text-12 font-semibold text-ink tracking-005 hover:text-accent transition-colors">
+            muhammadali
+          </Link>
+          <span className="text-11 text-ink-mute hidden sm:inline">/v6.2026</span>
         </div>
 
         {/* Command Bar */}
         <button
           onClick={() => setSearchOpen(true)}
-          className="hidden md:flex items-center gap-2 w-full max-w-480 mx-auto px-3 py-[6px] border border-line-strong rounded-sm text-ink-mute cursor-pointer hover:border-accent hover:text-ink transition-colors"
-          style={{ background: 'var(--fill-2)' }}
+          className="hidden md:flex items-center gap-2 w-full max-w-480 mx-auto px-3 py-[6px] border border-line rounded-sm text-ink-mute cursor-pointer hover:border-accent hover:text-ink transition-colors"
+          style={{ background: 'var(--fill)' }}
         >
-          <Search size={13} />
-          <span className="text-12 flex-1 text-left hidden lg:inline">Search projects, snippets…</span>
-          <span className="text-12 flex-1 text-left lg:hidden">Search…</span>
-          <span className="border border-line px-[5px] py-[1px] text-10 tracking-005">⌘K</span>
+          <Search size={12} />
+          <span className="text-11 flex-1 text-left">Search projects…</span>
+          <kbd className="border border-line px-[5px] py-[1px] text-10 tracking-005 font-mono">⌘K</kbd>
         </button>
 
         {/* Nav Links */}
@@ -72,20 +67,19 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-11 uppercase tracking-012 px-[10px] py-[6px] transition-colors duration-200"
+                className="text-11 tracking-005 px-3 py-[6px] transition-colors duration-200 rounded-sm"
                 style={{
                   color: active ? 'var(--ink)' : 'var(--ink-mute)',
-                  border: active ? '1px solid var(--line)' : '1px solid transparent',
+                  background: active ? 'var(--fill-2)' : 'transparent',
                 }}
               >
                 {l.label}
               </Link>
             )
           })}
-          {/* Contact button */}
           <button
             onClick={() => setContactOpen(true)}
-            className="text-11 uppercase tracking-012 px-[10px] py-[6px] border border-accent text-accent cursor-pointer bg-transparent transition-colors duration-200 hover:bg-accent hover:text-bg ml-1"
+            className="text-11 tracking-005 px-3 py-[6px] border border-accent text-accent cursor-pointer bg-transparent transition-colors duration-200 hover:bg-accent hover:text-bg rounded-sm ml-1"
           >
             Contact
           </button>
@@ -93,15 +87,15 @@ export default function Nav() {
 
         {/* Status */}
         <div className="hidden md:flex items-center gap-[6px]">
-          <span className="glow-pulse w-[6px] h-[6px] rounded-full bg-accent block" />
-          <span className="text-11 uppercase tracking-012 text-ink-mute">Online</span>
+          <span className="glow-pulse w-[7px] h-[7px] rounded-full block" style={{ backgroundColor: 'var(--accent)' }} />
+          <span className="text-11 tracking-005 text-ink-mute">Available</span>
         </div>
 
-        {/* Mobile: Contact + Hamburger */}
+        {/* Mobile */}
         <div className="md:hidden justify-self-end flex items-center gap-2">
           <button
             onClick={() => setContactOpen(true)}
-            className="text-10 uppercase tracking-012 px-3 py-[5px] border border-accent text-accent cursor-pointer bg-transparent"
+            className="text-10 tracking-005 px-3 py-[5px] border border-accent text-accent cursor-pointer bg-transparent rounded-sm"
           >
             Contact
           </button>
@@ -142,7 +136,7 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
-                className="font-display italic text-48 text-ink hover:text-accent transition-colors"
+                className="font-display text-48 text-ink hover:text-accent transition-colors"
               >
                 {l.label}
               </Link>

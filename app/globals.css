@@ -7,11 +7,12 @@
   --bg-soft:     #141414;
   --ink:         #e8e6e1;
   --ink-mute:    #8a8680;
-  --line:        rgba(255, 255, 255, 0.10);
-  --line-strong: rgba(255, 255, 255, 0.22);
+  --line:        rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.18);
   --fill:        rgba(255, 255, 255, 0.04);
   --fill-2:      rgba(255, 255, 255, 0.07);
   --accent:      #f59e0b;
+  --accent-warm: #f59e0b;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,24 +28,24 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display), 'Cormorant Garamond', serif;
-  font-style: italic;
   font-weight: 500;
 }
 
 .grid-bg {
   background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 4px var(--accent); }
-  50%       { box-shadow: 0 0 10px var(--accent); }
+  0%, 45%  { opacity: 1;    transform: scale(1); }
+  55%, 100% { opacity: 0;   transform: scale(0.6); }
 }
 
 .glow-pulse {
-  animation: pulse-glow 1.8s ease-in-out infinite;
+  animation: pulse-glow 1.4s ease-in-out infinite;
+  box-shadow: 0 0 6px 1px var(--accent);
 }
 
 a { color: inherit; text-decoration: none; }
@@ -70,17 +71,28 @@ a { color: inherit; text-decoration: none; }
   100% { stroke-dashoffset: -88; }
 }
 
-
-/* Hero corner bracket marks */
-.en-hero::before,
-.en-hero::after {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border: 1px solid var(--accent);
-  position: absolute;
+/* ── Technical readout elements ── */
+.readout-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
 }
-.en-hero::before { top: 24px; left: 24px; }
-.en-hero::after  { bottom: 24px; right: 24px; }
 
-/* Responsive overrides now handled via Tailwind responsive prefixes */
+.readout-value {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: var(--ink);
+}
+
+/* Scanline overlay — very subtle, adds instrument feel */
+@keyframes scanline {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
