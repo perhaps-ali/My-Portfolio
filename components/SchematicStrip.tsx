@@ -1,6 +1,33 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import {
+  SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiFramer,
+  SiJsonwebtokens, SiFastapi, SiDjango, SiOpenapiinitiative,
+  SiPostgresql, SiMongodb, SiMysql, SiMongoose,
+  SiAnthropic, SiOpenai, SiGoogle,
+} from 'react-icons/si'
+import { IconType } from 'react-icons'
+
+// Map tech name → { icon, brand color }
+const ICON_MAP: Record<string, { Icon: IconType; color: string }> = {
+  'Next.js':       { Icon: SiNextdotjs,        color: '#ffffff' },
+  'React':         { Icon: SiReact,            color: '#61DAFB' },
+  'TypeScript':    { Icon: SiTypescript,       color: '#3178C6' },
+  'Tailwind':      { Icon: SiTailwindcss,      color: '#06B6D4' },
+  'Framer Motion': { Icon: SiFramer,           color: '#BB4AE8' },
+  'JWT':           { Icon: SiJsonwebtokens,    color: '#FB015B' },
+  'FastAPI':       { Icon: SiFastapi,          color: '#009688' },
+  'Django REST':   { Icon: SiDjango,           color: '#092E20' },
+  'OpenAPI':       { Icon: SiOpenapiinitiative,color: '#6BA539' },
+  'PostgreSQL':    { Icon: SiPostgresql,       color: '#4169E1' },
+  'MongoDB':       { Icon: SiMongodb,          color: '#47A248' },
+  'MySQL':         { Icon: SiMysql,            color: '#4479A1' },
+  'Mongoose':      { Icon: SiMongoose,         color: '#880000' },
+  'Anthropic':     { Icon: SiAnthropic,        color: '#D4A574' },
+  'OpenAI':        { Icon: SiOpenai,           color: '#ffffff' },
+  'Gemini':        { Icon: SiGoogle,           color: '#4285F4' },
+}
 
 const cells = [
   { label: 'FRONTEND', accent: true,  items: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Framer Motion'] },
@@ -10,17 +37,33 @@ const cells = [
   { label: 'AI',       accent: true,  items: ['Anthropic', 'OpenAI', 'Gemini', 'RAG', 'Agents'] },
 ]
 
-// Stagger timing: each cell starts after the previous finishes printing
-const ITEM_DELAY = 0.12   // seconds between items within a cell
-const CELL_GAP   = 0.08   // extra gap before next cell starts
+const ITEM_DELAY = 0.12
+const CELL_GAP   = 0.08
 
 function getCellStartDelay(cellIndex: number) {
-  // Each cell's items take (items.length * ITEM_DELAY) to finish
-  let t = 0.5 // initial pause after page load
+  let t = 0.5
   for (let c = 0; c < cellIndex; c++) {
     t += cells[c].items.length * ITEM_DELAY + CELL_GAP
   }
   return t
+}
+
+function TechIcon({ name }: { name: string }) {
+  const entry = ICON_MAP[name]
+  if (entry) {
+    return (
+      <entry.Icon
+        size={13}
+        style={{ color: entry.color, flexShrink: 0 }}
+      />
+    )
+  }
+  // Fallback glyph for items without a brand icon
+  return (
+    <span className="font-mono text-[10px] shrink-0 leading-none" style={{ color: 'var(--line-strong)' }}>
+      ›
+    </span>
+  )
 }
 
 export default function SchematicStrip() {
@@ -47,7 +90,6 @@ export default function SchematicStrip() {
         {cells.map((c, ci) => {
           const isHov = hovered === ci
           const cellStart = getCellStartDelay(ci)
-          // Last cell spans both columns on mobile to avoid orphan layout
           const isLast = ci === cells.length - 1
 
           return (
@@ -58,9 +100,7 @@ export default function SchematicStrip() {
               className={[
                 'relative flex flex-col cursor-default select-none overflow-hidden',
                 'border-b sm:border-b-0 border-r border-line transition-colors duration-150',
-                // Right border: remove on even index (right col) on mobile, always show on sm+
                 ci % 2 === 1 ? 'border-r-0 sm:border-r' : '',
-                // Last cell: span 2 cols on mobile, restore border
                 isLast ? 'col-span-2 sm:col-span-1 border-r-0 sm:border-r-0' : '',
               ].join(' ')}
               style={{ background: isHov ? 'var(--fill-2)' : 'var(--bg-soft)' }}
@@ -95,51 +135,49 @@ export default function SchematicStrip() {
                   </span>
                 </motion.div>
 
-                {/* Items — on mobile last cell shows horizontally as tags */}
+                {/* Items */}
                 {isLast ? (
+                  /* AI cell on mobile: horizontal tag pills with icons */
                   <div className="flex flex-wrap gap-[6px] sm:flex-col sm:gap-[5px] flex-1">
                     {c.items.map((item, ii) => (
                       <motion.span
                         key={item}
-                        className="sm:hidden font-mono text-[11px] px-2 py-[3px] border border-line transition-colors duration-150"
+                        className="sm:hidden inline-flex items-center gap-[5px] font-mono text-[11px] px-2 py-[3px] border border-line transition-colors duration-150"
                         style={{ color: isHov ? 'var(--ink)' : 'var(--ink-mute)', borderColor: isHov ? 'var(--line-strong)' : 'var(--line)' }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: cellStart + ii * ITEM_DELAY, duration: 0.18 }}
                       >
+                        <TechIcon name={item} />
                         {item}
                       </motion.span>
                     ))}
-                    {/* sm+ uses normal column layout */}
+                    {/* sm+ normal column */}
                     {c.items.map((item, ii) => (
                       <motion.div
                         key={`sm-${item}`}
-                        className="hidden sm:flex items-center gap-[6px]"
+                        className="hidden sm:flex items-center gap-[7px]"
                         initial={{ opacity: 0, x: -6 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: cellStart + ii * ITEM_DELAY, duration: 0.18, ease: 'easeOut' }}
                       >
-                        <span className="font-mono text-[10px] shrink-0 transition-colors duration-150" style={{ color: isHov ? 'var(--accent)' : 'var(--line-strong)' }}>›</span>
+                        <TechIcon name={item} />
                         <span className="font-mono text-[12px] transition-colors duration-150" style={{ color: isHov ? 'var(--ink)' : 'var(--ink-mute)' }}>{item}</span>
                       </motion.div>
                     ))}
                   </div>
                 ) : (
-                  <div className="flex flex-col gap-[5px] flex-1">
+                  /* Regular cells */
+                  <div className="flex flex-col gap-[6px] flex-1">
                     {c.items.map((item, ii) => (
                       <motion.div
                         key={item}
-                        className="flex items-center gap-[6px]"
+                        className="flex items-center gap-[7px]"
                         initial={{ opacity: 0, x: -6 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: cellStart + ii * ITEM_DELAY, duration: 0.18, ease: 'easeOut' }}
                       >
-                        <span
-                          className="font-mono text-[10px] shrink-0 transition-colors duration-150"
-                          style={{ color: isHov ? 'var(--accent)' : 'var(--line-strong)' }}
-                        >
-                          ›
-                        </span>
+                        <TechIcon name={item} />
                         <span
                           className="font-mono text-[11px] sm:text-[12px] transition-colors duration-150"
                           style={{ color: isHov ? 'var(--ink)' : 'var(--ink-mute)' }}
@@ -150,7 +188,7 @@ export default function SchematicStrip() {
                     ))}
 
                     <motion.span
-                      className="inline-block w-[5px] h-[11px] ml-[13px]"
+                      className="inline-block w-[5px] h-[11px] ml-[1px]"
                       style={{ background: 'var(--accent)' }}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: [0, 1, 1, 0] }}
