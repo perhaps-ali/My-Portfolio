@@ -50,12 +50,12 @@ export default function AboutPage() {
               and event management.
             </p>
             <p className="font-display italic text-20 md:text-24 leading-[1.55] text-ink-mute mb-6">
-              Currently at Arithmiks — building frontend systems, admin panels, and customer-facing interfaces.
+              Currently at Arithmiks — building full-stack systems, admin panels, and customer-facing interfaces.
               Previously trained at Programmers Force and interned at Netsol Technologies Ltd.
             </p>
             <p className="font-display italic text-20 md:text-24 leading-[1.55] text-ink-mute">
               Graduate of Government College University Lahore (BSc Computer Sciences, 2024).
-              Full-stack capable with a strong frontend focus.
+              Full-stack capable
             </p>
           </div>
 
