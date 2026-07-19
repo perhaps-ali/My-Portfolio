@@ -24,8 +24,8 @@ export default function Footer() {
             style={{ background: 'radial-gradient(circle at top left, var(--accent), transparent 60%)' }}
           />
 
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
-            <div className="max-w-[560px]">
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16">
+            <div className="max-w-[560px] shrink-0">
               {/* Status tag */}
               <div className="flex items-center gap-2 mb-8">
                 <span className="glow-pulse inline-block w-[5px] h-[5px] rounded-full bg-accent shrink-0" />
@@ -55,9 +55,11 @@ export default function Footer() {
               </button>
             </div>
 
-            {/* Tech orbit — desktop: beside the CTA; mobile: centered below */}
-            <div className="hidden lg:flex flex-1 items-center justify-center max-w-[600px]">
-              <TechOrbit />
+            {/* Tech orbit — desktop: beside the CTA, aligned to the right edge; mobile: centered below */}
+            <div className="hidden lg:flex flex-1 items-center justify-end min-w-0">
+              <div className="w-full max-w-[600px]">
+                <TechOrbit />
+              </div>
             </div>
           </div>
 

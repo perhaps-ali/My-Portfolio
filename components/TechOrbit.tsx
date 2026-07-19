@@ -108,7 +108,7 @@ export default function TechOrbit() {
                 <motion.div
                   key={item}
                   className="absolute flex items-center justify-center pointer-events-auto"
-                  style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: 'translate(-50%,-50%)', zIndex: isHovered ? 40 : 1 }}
+                  style={{ left: `${pos.x}%`, top: `${pos.y}%`, x: '-50%', y: '-50%', zIndex: isHovered ? 40 : 1 }}
                   animate={{ rotate: ring.reverse ? 360 : -360 }}
                   transition={{ repeat: Infinity, ease: 'linear', duration: ring.duration }}
                   onMouseEnter={() => { setHoveredRing(ring.id); setHoveredItem(item) }}
