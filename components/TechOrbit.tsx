@@ -14,10 +14,10 @@ interface Ring {
 
 // Ordered innermost → outermost by item count, so denser rings get more circumference.
 const RINGS: Ring[] = [
-  { id: 'data',     color: '#34d399', radius: 17, duration: 42, reverse: false, items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Mongoose', 'PL/SQL'] },
-  { id: 'tooling',  color: '#a78bfa', radius: 25, duration: 58, reverse: true,  items: ['Git', 'GitHub', 'Linux', 'Figma', 'Bootstrap', 'VS Code'] },
-  { id: 'backend',  color: '#38bdf8', radius: 34, duration: 74, reverse: false, items: ['FastAPI', 'Django REST', 'Node.js', 'Express', 'REST', 'JWT / Auth', 'OpenAPI'] },
-  { id: 'frontend', color: '#e8e6e1', radius: 43, duration: 92, reverse: true,  items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Vue.js', 'HTML / CSS'] },
+  { id: 'data',     color: '#34d399', radius: 16, duration: 42, reverse: false, items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Mongoose', 'PL/SQL'] },
+  { id: 'tooling',  color: '#a78bfa', radius: 26, duration: 58, reverse: true,  items: ['Git', 'GitHub', 'Linux', 'Figma', 'Bootstrap', 'VS Code'] },
+  { id: 'backend',  color: '#38bdf8', radius: 36, duration: 74, reverse: false, items: ['FastAPI', 'Django REST', 'Node.js', 'Express', 'REST', 'JWT / Auth', 'OpenAPI'] },
+  { id: 'frontend', color: '#e8e6e1', radius: 45, duration: 92, reverse: true,  items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Vue.js', 'HTML / CSS'] },
 ]
 
 const CENTER = 50
@@ -35,10 +35,10 @@ function toXY(radius: number, angleDeg: number) {
 
 export default function TechOrbit() {
   const [hoveredRing, setHoveredRing] = useState<string | null>(null)
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [hubHovered, setHubHovered] = useState(false)
 
   return (
-    <div className="relative mx-auto w-full max-w-[600px] min-w-[300px] aspect-square select-none overflow-hidden">
+    <div className="relative mx-auto w-full max-w-[600px] min-w-[300px] aspect-square select-none">
       {/* Ambient glow */}
       <div
         className="pointer-events-none absolute inset-0 rounded-full"
@@ -48,31 +48,48 @@ export default function TechOrbit() {
       {/* Static orbit path rings */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 100 100">
         {RINGS.map((r) => {
-          const isDim = hoveredRing !== null && hoveredRing !== r.id
+          const isActive = hubHovered || hoveredRing === r.id
+          const isDim = !hubHovered && hoveredRing !== null && hoveredRing !== r.id
           return (
-            <circle
-              key={r.id}
-              cx={CENTER} cy={CENTER} r={r.radius}
-              fill="none"
-              stroke={r.color}
-              strokeWidth={hoveredRing === r.id ? 0.5 : 0.28}
-              strokeOpacity={isDim ? 0.06 : hoveredRing === r.id ? 0.55 : 0.16}
-              strokeDasharray="0.6 1.8"
-              style={{ transition: 'stroke-opacity 0.25s ease, stroke-width 0.25s ease' }}
-            />
+            <g key={r.id}>
+              {/* Wide invisible band — hovering anywhere near the ring (not just a node) activates it */}
+              <circle
+                cx={CENTER} cy={CENTER} r={r.radius}
+                fill="none"
+                stroke="transparent"
+                strokeWidth={6}
+                style={{ pointerEvents: 'stroke', cursor: 'default' }}
+                onMouseEnter={() => setHoveredRing(r.id)}
+                onMouseLeave={() => setHoveredRing(null)}
+              />
+              <circle
+                cx={CENTER} cy={CENTER} r={r.radius}
+                fill="none"
+                stroke={r.color}
+                strokeWidth={isActive ? 0.5 : 0.28}
+                strokeOpacity={isDim ? 0.06 : isActive ? 0.55 : 0.16}
+                strokeDasharray="0.6 1.8"
+                style={{ transition: 'stroke-opacity 0.25s ease, stroke-width 0.25s ease' }}
+              />
+            </g>
           )
         })}
       </svg>
 
-      {/* Center hub */}
+      {/* Center hub — hovering it activates every ring at once */}
       <div
-        className="absolute flex flex-col items-center justify-center rounded-full border z-20"
+        className="absolute flex flex-col items-center justify-center rounded-full border z-20 cursor-default transition-transform duration-200"
+        onMouseEnter={() => setHubHovered(true)}
+        onMouseLeave={() => setHubHovered(false)}
+        onFocus={() => setHubHovered(true)}
+        onBlur={() => setHubHovered(false)}
+        tabIndex={0}
         style={{
-          left: `${CENTER}%`, top: `${CENTER}%`, transform: 'translate(-50%,-50%)',
+          left: `${CENTER}%`, top: `${CENTER}%`, transform: `translate(-50%,-50%) scale(${hubHovered ? 1.08 : 1})`,
           width: '20%', height: '20%',
           borderColor: 'var(--accent)',
           background: 'radial-gradient(circle at 35% 30%, rgba(245,158,11,0.16), var(--bg-soft) 72%)',
-          boxShadow: '0 0 32px rgba(245,158,11,0.2)',
+          boxShadow: hubHovered ? '0 0 44px rgba(245,158,11,0.32)' : '0 0 32px rgba(245,158,11,0.2)',
         }}
       >
         <span
@@ -88,7 +105,7 @@ export default function TechOrbit() {
 
       {/* Orbiting rings */}
       {RINGS.map((ring) => {
-        const isRingDim = hoveredRing !== null && hoveredRing !== ring.id
+        const isRingDim = !hubHovered && hoveredRing !== null && hoveredRing !== ring.id
         const n = ring.items.length
         return (
           <motion.div
@@ -102,8 +119,10 @@ export default function TechOrbit() {
               const angle = (360 / n) * i
               const pos = toXY(ring.radius, angle)
               const entry = TECH_ICON_MAP[item]
-              const isHovered = hoveredItem === item
+              const isHovered = hubHovered || hoveredRing === ring.id
               const code = item.replace(/[^A-Za-z]/g, ' ').trim().split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase()
+              // Flip the label to whichever side has room, so it never clips past the top/bottom edge.
+              const labelBelow = pos.y < CENTER
               return (
                 <motion.div
                   key={item}
@@ -111,10 +130,10 @@ export default function TechOrbit() {
                   style={{ left: `${pos.x}%`, top: `${pos.y}%`, x: '-50%', y: '-50%', zIndex: isHovered ? 40 : 1 }}
                   animate={{ rotate: ring.reverse ? 360 : -360 }}
                   transition={{ repeat: Infinity, ease: 'linear', duration: ring.duration }}
-                  onMouseEnter={() => { setHoveredRing(ring.id); setHoveredItem(item) }}
-                  onMouseLeave={() => { setHoveredRing(null); setHoveredItem(null) }}
-                  onFocus={() => { setHoveredRing(ring.id); setHoveredItem(item) }}
-                  onBlur={() => { setHoveredRing(null); setHoveredItem(null) }}
+                  onMouseEnter={() => setHoveredRing(ring.id)}
+                  onMouseLeave={() => setHoveredRing(null)}
+                  onFocus={() => setHoveredRing(ring.id)}
+                  onBlur={() => setHoveredRing(null)}
                   tabIndex={0}
                 >
                   <div
@@ -133,10 +152,13 @@ export default function TechOrbit() {
                         {code}
                       </span>
                     )}
-                    {/* Full name — reveals on hover/focus only, keeps the ring collision-free at rest */}
+                    {/* Full name — reveals on hover/focus only; flips above/below so it favors the side with more room */}
                     <span
-                      className="absolute top-full mt-[6px] font-mono text-[8px] sm:text-[11px] uppercase tracking-[0.02em] whitespace-nowrap pointer-events-none transition-opacity duration-150"
+                      className="absolute left-1/2 font-mono text-[8px] sm:text-[11px] uppercase tracking-[0.02em] whitespace-nowrap pointer-events-none transition-opacity duration-150"
                       style={{
+                        [labelBelow ? 'top' : 'bottom']: '100%',
+                        [labelBelow ? 'marginTop' : 'marginBottom']: '6px',
+                        transform: 'translateX(-50%)',
                         opacity: isHovered ? 1 : 0,
                         color: ring.color,
                         background: 'var(--bg)',

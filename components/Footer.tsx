@@ -56,7 +56,7 @@ export default function Footer() {
             </div>
 
             {/* Tech orbit — desktop: beside the CTA, aligned to the right edge; mobile: centered below */}
-            <div className="hidden lg:flex flex-1 items-center justify-end min-w-0">
+            <div className="hidden lg:flex flex-1 items-center justify-end min-w-0 pr-6">
               <div className="w-full max-w-[600px]">
                 <TechOrbit />
               </div>
