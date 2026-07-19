@@ -4,12 +4,11 @@ import { motion } from 'framer-motion'
 import Footer from '@/components/Footer'
 
 const allProjects = [
-  { slug: 'sba-loans', title: 'SBA Loans',  year: '2025–26', role: 'Frontend Developer',    type: 'Production', desc: 'Complete frontend for an SBA loan workflow platform — application flows, partner dashboard, document management.' },
-  { slug: 'swerv',     title: 'Swerv',      year: '2025',    role: 'Frontend Developer',    type: 'Internal',   desc: 'UI elevation and interface consistency for an automotive product — component design, usability, look & feel.' },
-  { slug: 'nicgs',     title: 'NICGS',      year: '2025',    role: 'Frontend Developer',    type: 'Revamp',     desc: 'Complete frontend overhaul — rebuilt from scratch, modernised design language, restructured navigation.' },
-  { slug: 'quanta',    title: 'Quanta',     year: '2024', role: 'Full-Stack',            type: 'Live',       desc: 'Data dashboard connecting multiple databases and auto-generating charts via queries or AI prompts.' },
+  { slug: 'sba-loans', title: 'SBA Loans',  year: '2025–26', role: 'Full-Stack',            type: 'Production', desc: 'Full-stack SBA loan workflow platform — application flows, partner dashboard, document management, and Django REST API.' },
+  { slug: 'swerv',     title: 'Swerv',      year: '2025',    role: 'Full-Stack',            type: 'Internal',   desc: 'UI elevation and interface consistency for an automotive product, backed by Django REST API work.' },
+  { slug: 'nicgs',     title: 'NICGS',      year: '2025',    role: 'Full-Stack',            type: 'Revamp',     desc: 'Complete frontend overhaul with Django REST/CMS API work — rebuilt from scratch, modernised design language.' },
+  { slug: 'quanta',    title: 'Quanta',     year: '2026', role: 'Full-Stack',            type: 'Live',       desc: 'Data dashboard connecting multiple databases and auto-generating charts via queries or AI prompts.' },
   { slug: 'wecare',    title: 'WeCare',     year: '2024', role: 'Full-Stack',            type: 'FYP',        desc: 'MERN stack catering and event management — reservations, menu management, and ordering.' },
-  { slug: 'chatapp',   title: 'Chat App',   year: '2024', role: 'Frontend Developer',    type: 'Shipped',    desc: 'Real-time chat frontend built with Vue.js — messaging UI, responsive layout, component architecture.' },
 ]
 
 export default function WorkPage() {
@@ -45,9 +44,13 @@ export default function WorkPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ delay: i * 0.04, duration: 0.35 }}
+              whileTap={{ scale: 0.99 }}
               className="border-b border-line last:border-b-0 group"
             >
-              <Link href={`/work/${p.slug}`} className="grid grid-cols-[40px_1fr] md:grid-cols-[40px_1fr_90px_90px] hover:bg-fill transition-colors duration-150">
+              <Link
+                href={`/work/${p.slug}`}
+                className="grid grid-cols-[40px_1fr] md:grid-cols-[40px_1fr_90px_90px] border-l-2 border-transparent hover:border-accent hover:bg-fill transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:-outline-offset-2 focus-visible:border-accent"
+              >
                 {/* Index */}
                 <div className="px-4 py-5 border-r border-line flex items-start">
                   <span className="font-mono text-[10px] text-ink-mute pt-[3px]">

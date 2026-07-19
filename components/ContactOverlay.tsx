@@ -77,7 +77,7 @@ export default function ContactOverlay({ open, onClose }: Props) {
               </div>
               <button
                 onClick={onClose}
-                className="text-ink-mute hover:text-ink transition-colors cursor-pointer bg-transparent border-0 mt-1"
+                className="text-ink-mute hover:text-ink transition cursor-pointer bg-transparent border-0 mt-1 active:scale-90"
                 aria-label="Close contact panel"
               >
                 <X size={18} />
@@ -97,7 +97,7 @@ export default function ContactOverlay({ open, onClose }: Props) {
                   <p className="text-12 text-ink-mute">I'll get back to you within 24 hours.</p>
                   <button
                     onClick={onClose}
-                    className="mt-4 text-11 uppercase tracking-018 border border-line px-6 py-2 text-ink-mute hover:border-accent hover:text-accent transition-colors cursor-pointer bg-transparent"
+                    className="mt-4 text-11 uppercase tracking-018 border border-line px-6 py-2 text-ink-mute hover:border-accent hover:text-accent transition cursor-pointer bg-transparent active:scale-[0.97]"
                   >
                     Close
                   </button>
@@ -134,7 +134,7 @@ export default function ContactOverlay({ open, onClose }: Props) {
                   <button
                     type="submit"
                     disabled={pending}
-                    className="w-full py-3 text-11 uppercase tracking-018 font-mono border transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer bg-transparent"
+                    className="w-full py-3 text-11 uppercase tracking-018 font-mono border transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer bg-transparent active:scale-[0.98] disabled:active:scale-100"
                     style={{
                       borderColor: 'var(--accent)',
                       color: pending ? 'var(--ink-mute)' : 'var(--accent)',

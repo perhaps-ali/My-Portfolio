@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Mono, Cormorant_Garamond, Space_Grotesk } from 'next/font/google'
+import { MotionConfig } from 'framer-motion'
 import './globals.css'
 import Nav from '@/components/Nav'
 import AccentCycler from '@/components/AccentCycler'
@@ -44,9 +45,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${mono.variable} ${display.variable} ${sans.variable}`}>
       <body>
-        <AccentCycler />
-        <Nav />
-        <main>{children}</main>
+        <MotionConfig reducedMotion="user">
+          <AccentCycler />
+          <Nav />
+          <main>{children}</main>
+        </MotionConfig>
       </body>
     </html>
   )

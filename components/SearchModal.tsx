@@ -11,7 +11,6 @@ const ALL_ITEMS = [
   { type: 'Project', title: 'NICGS',     href: '/work/nicgs',     desc: 'Complete frontend overhaul — rebuilt from scratch, responsive.' },
   { type: 'Project', title: 'Quanta',    href: '/work/quanta',    desc: 'Data dashboard — multi-DB, AI-generated charts, full-stack.' },
   { type: 'Project', title: 'WeCare',    href: '/work/wecare',    desc: 'MERN stack catering & event management system (FYP).' },
-  { type: 'Project', title: 'Chat App',  href: '/work/chatapp',   desc: 'Real-time chat frontend built with Vue.js.' },
   // Pages
   { type: 'Page', title: 'About', href: '/about', desc: 'Who I am and how I work.' },
   { type: 'Page', title: 'Work',  href: '/work',  desc: 'All projects.' },

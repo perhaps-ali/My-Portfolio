@@ -3,7 +3,6 @@ import { useRef, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import SectionHeader from '@/components/SectionHeader'
 import SchematicStrip from '@/components/SchematicStrip'
-import SkillGrid from '@/components/SkillGrid'
 import ProjectGrid from '@/components/ProjectGrid'
 import HorizontalTimeline from '@/components/HorizontalTimeline'
 import Footer from '@/components/Footer'
@@ -14,7 +13,7 @@ const statusFields = [
   { key: 'role',      val: 'software engineer',      highlight: false },
   { key: 'exp',       val: '2–3 yrs production',      highlight: false },
   { key: 'open_to',   val: 'full-time · freelance',  highlight: false },
-  { key: 'stack',     val: 'React / Next / FastAPI', highlight: false },
+  { key: 'stack',     val: 'Next.js / FastAPI / DRF', highlight: false },
   { key: 'avail',     val: 'Q3 2026',                highlight: false },
 ]
 
@@ -252,15 +251,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Skills ── */}
-      <section className="px-5 md:px-8 py-14 md:py-20 border-t border-line">
-        <SectionHeader label="stack" title="The toolkit." meta="4 modules" />
-        <SkillGrid />
-      </section>
-
       {/* ── Projects ── */}
       <section className="px-5 md:px-8 py-14 md:py-20 border-t border-line">
-        <SectionHeader label="work" title="Selected projects." meta="6 total" />
+        <SectionHeader label="work" title="Selected projects." meta="5 total" />
         <ProjectGrid />
       </section>
 

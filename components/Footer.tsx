@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import ContactOverlay from './ContactOverlay'
+import TechOrbit from './TechOrbit'
 
 const contacts = [
   { label: 'email',    value: 'muhammaddali908@gmail.com', href: 'mailto:muhammaddali908@gmail.com' },
@@ -23,33 +24,46 @@ export default function Footer() {
             style={{ background: 'radial-gradient(circle at top left, var(--accent), transparent 60%)' }}
           />
 
-          {/* Status tag */}
-          <div className="flex items-center gap-2 mb-8">
-            <span className="glow-pulse inline-block w-[5px] h-[5px] rounded-full bg-accent shrink-0" />
-            <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-ink-mute">
-              status: available · Q3 2026
-            </span>
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
+            <div className="max-w-[560px]">
+              {/* Status tag */}
+              <div className="flex items-center gap-2 mb-8">
+                <span className="glow-pulse inline-block w-[5px] h-[5px] rounded-full bg-accent shrink-0" />
+                <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-ink-mute">
+                  status: available · Q3 2026
+                </span>
+              </div>
+
+              <h2
+                className="font-display leading-[0.88] tracking-[-0.03em] text-ink mb-5"
+                style={{ fontSize: 'clamp(48px, 9vw, 116px)' }}
+              >
+                Let&apos;s build<br />
+                something{' '}
+                <em className="italic" style={{ color: 'var(--accent)' }}>real.</em>
+              </h2>
+
+              <p className="font-display italic text-18 md:text-22 text-ink-mute max-w-[500px] leading-[1.45] mb-10">
+                Got a project or an idea? Drop a message — I reply within 24 hours.
+              </p>
+
+              <button
+                onClick={() => setContactOpen(true)}
+                className="inline-flex items-center gap-3 border border-accent text-accent font-mono text-11 tracking-[0.14em] uppercase px-5 py-3 hover:bg-accent hover:text-bg transition duration-200 cursor-pointer bg-transparent active:scale-[0.97]"
+              >
+                Get in touch →
+              </button>
+            </div>
+
+            {/* Tech orbit — desktop: beside the CTA; mobile: centered below */}
+            <div className="hidden lg:flex flex-1 items-center justify-center max-w-[600px]">
+              <TechOrbit />
+            </div>
           </div>
 
-          <h2
-            className="font-display leading-[0.88] tracking-[-0.03em] text-ink mb-5"
-            style={{ fontSize: 'clamp(48px, 9vw, 116px)' }}
-          >
-            Let&apos;s build<br />
-            something{' '}
-            <em className="italic" style={{ color: 'var(--accent)' }}>real.</em>
-          </h2>
-
-          <p className="font-display italic text-18 md:text-22 text-ink-mute max-w-[500px] leading-[1.45] mb-10">
-            Got a project or an idea? Drop a message — I reply within 24 hours.
-          </p>
-
-          <button
-            onClick={() => setContactOpen(true)}
-            className="inline-flex items-center gap-3 border border-accent text-accent font-mono text-11 tracking-[0.14em] uppercase px-5 py-3 hover:bg-accent hover:text-bg transition-colors duration-200 cursor-pointer bg-transparent"
-          >
-            Get in touch →
-          </button>
+          <div className="lg:hidden flex justify-center pt-10">
+            <TechOrbit />
+          </div>
         </div>
 
         {/* ── Contact manifest ── */}

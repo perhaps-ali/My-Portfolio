@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search } from 'lucide-react'
+import { Search, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SearchModal from './SearchModal'
@@ -51,7 +51,7 @@ export default function Nav() {
         {/* Command Bar */}
         <button
           onClick={() => setSearchOpen(true)}
-          className="hidden md:flex items-center gap-2 w-full max-w-480 mx-auto px-3 py-[6px] border border-line rounded-sm text-ink-mute cursor-pointer hover:border-accent hover:text-ink transition-colors"
+          className="hidden md:flex items-center gap-2 w-full max-w-480 mx-auto px-3 py-[6px] border border-line rounded-sm text-ink-mute cursor-pointer hover:border-accent hover:text-ink transition active:scale-[0.98]"
           style={{ background: 'var(--fill)' }}
         >
           <Search size={12} />
@@ -67,7 +67,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-11 tracking-005 px-3 py-[6px] transition-colors duration-200 rounded-sm"
+                className="text-11 tracking-005 px-3 py-[6px] transition duration-200 rounded-sm active:scale-[0.96] inline-block"
                 style={{
                   color: active ? 'var(--ink)' : 'var(--ink-mute)',
                   background: active ? 'var(--fill-2)' : 'transparent',
@@ -79,7 +79,7 @@ export default function Nav() {
           })}
           <button
             onClick={() => setContactOpen(true)}
-            className="text-11 tracking-005 px-3 py-[6px] border border-accent text-accent cursor-pointer bg-transparent transition-colors duration-200 hover:bg-accent hover:text-bg rounded-sm ml-1"
+            className="text-11 tracking-005 px-3 py-[6px] border border-accent text-accent cursor-pointer bg-transparent transition duration-200 hover:bg-accent hover:text-bg rounded-sm ml-1 active:scale-[0.96]"
           >
             Contact
           </button>
@@ -95,16 +95,16 @@ export default function Nav() {
         <div className="md:hidden justify-self-end flex items-center gap-2">
           <button
             onClick={() => setContactOpen(true)}
-            className="text-10 tracking-005 px-3 py-[5px] border border-accent text-accent cursor-pointer bg-transparent rounded-sm"
+            className="text-10 tracking-005 px-3 py-[5px] border border-accent text-accent cursor-pointer bg-transparent rounded-sm transition-transform active:scale-[0.94]"
           >
             Contact
           </button>
           <button
-            className="bg-transparent border-0 text-ink cursor-pointer text-xl leading-none"
+            className="bg-transparent border-0 text-ink cursor-pointer leading-none p-[10px] -m-[10px] transition-transform active:scale-90"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
-            ☰
+            <Menu size={20} />
           </button>
         </div>
       </nav>
@@ -120,13 +120,14 @@ export default function Nav() {
           >
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute top-5 right-8 bg-transparent border-0 text-ink cursor-pointer text-2xl"
+              className="absolute top-5 right-8 bg-transparent border-0 text-ink cursor-pointer p-[10px] -m-[10px] transition-transform active:scale-90"
+              aria-label="Close menu"
             >
-              ✕
+              <X size={22} />
             </button>
             <button
               onClick={() => { setMenuOpen(false); setSearchOpen(true) }}
-              className="flex items-center gap-2 border border-line px-4 py-2 text-ink-mute text-12 cursor-pointer bg-transparent"
+              className="flex items-center gap-2 border border-line px-4 py-2 text-ink-mute text-12 cursor-pointer bg-transparent transition-transform active:scale-95"
             >
               <Search size={13} />
               Search…
@@ -136,7 +137,7 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
-                className="font-display text-48 text-ink hover:text-accent transition-colors"
+                className="font-display text-48 text-ink hover:text-accent transition active:scale-95 inline-block"
               >
                 {l.label}
               </Link>

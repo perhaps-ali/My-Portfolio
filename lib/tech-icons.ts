@@ -1,0 +1,40 @@
+import {
+  SiNextdotjs, SiReact, SiTypescript, SiJavascript, SiTailwindcss, SiFramer, SiVuedotjs, SiHtml5,
+  SiJsonwebtokens, SiFastapi, SiDjango, SiOpenapiinitiative, SiNodedotjs, SiExpress,
+  SiPostgresql, SiMongodb, SiMysql, SiMongoose,
+  SiAnthropic, SiOpenai, SiGoogle,
+  SiGit, SiGithub, SiLinux, SiFigma, SiBootstrap,
+} from 'react-icons/si'
+import { IconType } from 'react-icons'
+
+/** Shared tech-name → { icon, brand color } lookup, used by SchematicStrip and TechOrbit. */
+export const TECH_ICON_MAP: Record<string, { Icon: IconType; color: string }> = {
+  'Next.js':       { Icon: SiNextdotjs,        color: '#ffffff' },
+  'React':         { Icon: SiReact,            color: '#61DAFB' },
+  'TypeScript':    { Icon: SiTypescript,       color: '#3178C6' },
+  'JavaScript':    { Icon: SiJavascript,       color: '#F7DF1E' },
+  'Tailwind':      { Icon: SiTailwindcss,      color: '#06B6D4' },
+  'Tailwind CSS':  { Icon: SiTailwindcss,      color: '#06B6D4' },
+  'Framer Motion': { Icon: SiFramer,           color: '#BB4AE8' },
+  'Vue.js':        { Icon: SiVuedotjs,         color: '#4FC08D' },
+  'HTML / CSS':    { Icon: SiHtml5,            color: '#E34F26' },
+  'JWT':           { Icon: SiJsonwebtokens,    color: '#FB015B' },
+  'JWT / Auth':    { Icon: SiJsonwebtokens,    color: '#FB015B' },
+  'FastAPI':       { Icon: SiFastapi,          color: '#009688' },
+  'Django REST':   { Icon: SiDjango,           color: '#092E20' },
+  'OpenAPI':       { Icon: SiOpenapiinitiative,color: '#6BA539' },
+  'Node.js':       { Icon: SiNodedotjs,        color: '#5FA04E' },
+  'Express':       { Icon: SiExpress,          color: '#ffffff' },
+  'PostgreSQL':    { Icon: SiPostgresql,       color: '#4169E1' },
+  'MongoDB':       { Icon: SiMongodb,          color: '#47A248' },
+  'MySQL':         { Icon: SiMysql,            color: '#4479A1' },
+  'Mongoose':      { Icon: SiMongoose,         color: '#880000' },
+  'Anthropic':     { Icon: SiAnthropic,        color: '#D4A574' },
+  'OpenAI':        { Icon: SiOpenai,           color: '#ffffff' },
+  'Gemini':        { Icon: SiGoogle,           color: '#4285F4' },
+  'Git':           { Icon: SiGit,              color: '#F05032' },
+  'GitHub':        { Icon: SiGithub,           color: '#ffffff' },
+  'Linux':         { Icon: SiLinux,            color: '#FCC624' },
+  'Figma':         { Icon: SiFigma,            color: '#F24E1E' },
+  'Bootstrap':     { Icon: SiBootstrap,        color: '#7952B3' },
+}

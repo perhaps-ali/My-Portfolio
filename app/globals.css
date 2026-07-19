@@ -19,6 +19,11 @@
 
 html { scroll-behavior: smooth; }
 
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--bg);
   color: var(--ink);
@@ -50,6 +55,22 @@ h1, h2, h3, h4 {
 
 a { color: inherit; text-decoration: none; }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* SMIL animateMotion isn't a CSS animation, so it isn't caught above */
+  .flow-dot { display: none; }
+}
+
 .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
@@ -69,6 +90,15 @@ a { color: inherit; text-decoration: none; }
 @keyframes dash-flow-border {
   0%   { stroke-dashoffset: 0; }
   100% { stroke-dashoffset: -88; }
+}
+
+@keyframes radar-ping {
+  0%   { transform: scale(1);    opacity: 0.55; }
+  100% { transform: scale(1.4);  opacity: 0; }
+}
+
+.radar-ping {
+  animation: radar-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 /* ── Technical readout elements ── */

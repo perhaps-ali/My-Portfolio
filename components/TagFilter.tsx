@@ -21,7 +21,7 @@ export default function TagFilter({ active, onChange }: TagFilterProps) {
         <button
           key={t.label}
           onClick={() => onChange(t.label)}
-          className="font-mono text-11 tracking-012 uppercase px-3 py-[6px] cursor-pointer"
+          className="font-mono text-11 tracking-012 uppercase px-3 py-[10px] md:py-[6px] cursor-pointer transition-transform active:scale-95"
           style={{
             background: active === t.label ? 'var(--accent)' : 'transparent',
             border: `1px solid ${active === t.label ? 'var(--accent)' : 'var(--line)'}`,

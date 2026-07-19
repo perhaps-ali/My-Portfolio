@@ -25,7 +25,7 @@ export default function BlogCard({ slug, title, date, readTime, category, desc }
       <p className="text-13 text-ink-mute">{desc}</p>
       <Link
         href={`/blog/${slug}`}
-        className="mt-auto text-10 tracking-018 uppercase text-accent inline-block transition-transform duration-150 hover:translate-x-1"
+        className="mt-auto text-10 tracking-018 uppercase text-accent inline-block py-2 -my-2 transition-transform duration-150 hover:translate-x-1 active:scale-95"
       >
         Read →
       </Link>

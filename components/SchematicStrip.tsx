@@ -1,33 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiFramer,
-  SiJsonwebtokens, SiFastapi, SiDjango, SiOpenapiinitiative,
-  SiPostgresql, SiMongodb, SiMysql, SiMongoose,
-  SiAnthropic, SiOpenai, SiGoogle,
-} from 'react-icons/si'
-import { IconType } from 'react-icons'
-
-// Map tech name → { icon, brand color }
-const ICON_MAP: Record<string, { Icon: IconType; color: string }> = {
-  'Next.js':       { Icon: SiNextdotjs,        color: '#ffffff' },
-  'React':         { Icon: SiReact,            color: '#61DAFB' },
-  'TypeScript':    { Icon: SiTypescript,       color: '#3178C6' },
-  'Tailwind':      { Icon: SiTailwindcss,      color: '#06B6D4' },
-  'Framer Motion': { Icon: SiFramer,           color: '#BB4AE8' },
-  'JWT':           { Icon: SiJsonwebtokens,    color: '#FB015B' },
-  'FastAPI':       { Icon: SiFastapi,          color: '#009688' },
-  'Django REST':   { Icon: SiDjango,           color: '#092E20' },
-  'OpenAPI':       { Icon: SiOpenapiinitiative,color: '#6BA539' },
-  'PostgreSQL':    { Icon: SiPostgresql,       color: '#4169E1' },
-  'MongoDB':       { Icon: SiMongodb,          color: '#47A248' },
-  'MySQL':         { Icon: SiMysql,            color: '#4479A1' },
-  'Mongoose':      { Icon: SiMongoose,         color: '#880000' },
-  'Anthropic':     { Icon: SiAnthropic,        color: '#D4A574' },
-  'OpenAI':        { Icon: SiOpenai,           color: '#ffffff' },
-  'Gemini':        { Icon: SiGoogle,           color: '#4285F4' },
-}
+import { TECH_ICON_MAP } from '@/lib/tech-icons'
 
 const cells = [
   { label: 'FRONTEND', accent: true,  items: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Framer Motion'] },
@@ -49,7 +23,7 @@ function getCellStartDelay(cellIndex: number) {
 }
 
 function TechIcon({ name }: { name: string }) {
-  const entry = ICON_MAP[name]
+  const entry = TECH_ICON_MAP[name]
   if (entry) {
     return (
       <entry.Icon
