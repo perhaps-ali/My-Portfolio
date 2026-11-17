@@ -1,252 +1,23 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import TopologyDiagram from '@/components/TopologyDiagram'
 import Footer from '@/components/Footer'
 import SectionHeader from '@/components/SectionHeader'
-
-type TopoNode = { id: string; label: string; sub: string; top: number; left: number; accent?: boolean }
-type TopoEdge = { from: string; to: string }
-type Topology = {
-  figLabel: string; version: string; height: number
-  axisX?: string; axisY?: string
-  nodes: TopoNode[]; edges: TopoEdge[]
-  stack?: string[]
-  stats?: { label: string; value: string }[]
-}
-type Project = {
-  title: string; tagline: string; year: string; role: string
-  stack: string[]; url?: string; urlLabel?: string
-  cover?: string
-  problem: string; roleDesc: string; stackDesc: string
-  topology: Topology
-}
-
-const projects: Record<string, Project> = {
-  'sba-loans': {
-    title: 'SBA Loans',
-    tagline: 'A platform facilitating Small Business Administration loan workflows.',
-    year: '2025–2026',
-    role: 'Full-Stack Developer',
-    url: 'https://partner.sbaloanshq.com',
-    urlLabel: 'Live site →',
-    cover: '/images/loanbridge.png',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Django REST Framework', 'REST API'],
-    problem: 'Loan application flows were fragmented, with no unified frontend for applicants and partners managing SBA loan processes.',
-    roleDesc: 'Built and structured the complete frontend, and developed the Django REST API endpoints powering loan application, document upload, and management flows.',
-    stackDesc: 'Next.js · TypeScript · Tailwind CSS · Django REST Framework',
-    topology: {
-      figLabel: 'fig.01 — system topology',
-      version: 'v1 · production',
-      height: 340,
-      axisX: 'request lifecycle →',
-      axisY: 'layer depth →',
-      nodes: [
-        { id: 'browser',  label: 'Browser',     sub: 'applicant · partner', top: 60,  left: 40  },
-        { id: 'nextapp',  label: 'Next.js App',  sub: 'loan flows · routing', top: 60,  left: 200, accent: true },
-        { id: 'sbaapi',   label: 'SBA API',      sub: 'loan processing',     top: 60,  left: 380 },
-        { id: 'loandb',   label: 'Loan DB',      sub: 'application data',    top: 60,  left: 560 },
-        { id: 'auth',     label: 'Auth',          sub: 'session · JWT',       top: 200, left: 200 },
-        { id: 'docstore', label: 'Doc Store',    sub: 'uploads · S3',        top: 200, left: 380 },
-      ],
-      edges: [
-        { from: 'browser',  to: 'nextapp'  },
-        { from: 'nextapp',  to: 'sbaapi'   },
-        { from: 'sbaapi',   to: 'loandb'   },
-        { from: 'nextapp',  to: 'auth'     },
-        { from: 'sbaapi',   to: 'docstore' },
-      ],
-      stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Django REST Framework', 'REST API', 'JWT', 'S3'],
-      stats: [
-        { label: 'Role',     value: 'Full-Stack' },
-        { label: 'Year',     value: '2025–2026' },
-        { label: 'Type',     value: 'Production' },
-        { label: 'Nodes',    value: '6' },
-      ],
-    },
-  },
-
-  'swerv': {
-    title: 'Swerv',
-    tagline: 'UI elevation and interface consistency for an automotive product.',
-    year: '2025',
-    role: 'Full-Stack Developer',
-    cover: '/images/autocore-dashboard.png',
-    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Django REST Framework', 'REST API'],
-    problem: 'Interface inconsistency and poor component cohesion were reducing the product\'s visual quality and usability.',
-    roleDesc: 'Elevated the product\'s visual quality and interface consistency, and built/maintained the Django REST API endpoints powering vehicle data and dealer workflows.',
-    stackDesc: 'React · TypeScript · Tailwind CSS · Django REST Framework',
-    topology: {
-      figLabel: 'fig.01 — system topology',
-      version: 'v2 · internal',
-      height: 300,
-      axisX: 'client → server →',
-      axisY: 'layer depth →',
-      nodes: [
-        { id: 'browser',  label: 'Browser',      sub: 'end user · dealer', top: 60,  left: 40  },
-        { id: 'reactapp', label: 'React App',     sub: 'component system',  top: 60,  left: 200, accent: true },
-        { id: 'autoapi',  label: 'Automotive API',sub: 'vehicle data',      top: 60,  left: 380 },
-        { id: 'cmsdb',    label: 'CMS / DB',      sub: 'inventory · media', top: 60,  left: 560 },
-        { id: 'cdn',      label: 'Media CDN',     sub: 'assets · images',   top: 200, left: 200 },
-      ],
-      edges: [
-        { from: 'browser',  to: 'reactapp' },
-        { from: 'reactapp', to: 'autoapi'  },
-        { from: 'autoapi',  to: 'cmsdb'    },
-        { from: 'reactapp', to: 'cdn'      },
-      ],
-      stack: ['React', 'TypeScript', 'Tailwind CSS', 'Django REST Framework', 'REST API', 'CDN'],
-      stats: [
-        { label: 'Role',  value: 'Full-Stack' },
-        { label: 'Year',  value: '2025' },
-        { label: 'Type',  value: 'Internal' },
-        { label: 'Nodes', value: '5' },
-      ],
-    },
-  },
-
-  'nicgs': {
-    title: 'NICGS',
-    tagline: 'A complete frontend overhaul — rebuilt from scratch, modernised and responsive.',
-    year: '2025',
-    role: 'Full-Stack Developer',
-    cover: '/images/noor-cart.png',
-    stack: ['Next.js', 'Tailwind CSS', 'Django REST Framework', 'CMS API', 'REST API'],
-    problem: 'The existing website had an outdated design language, poor navigation structure, and no responsiveness across devices.',
-    roleDesc: 'Led the complete UI rebuild, and developed/maintained the Django REST and CMS API endpoints powering the content layer. Redesigned all pages from the ground up, restructured navigation, and ensured a performant, responsive experience across all devices.',
-    stackDesc: 'Next.js · Tailwind CSS · Django REST Framework · CMS API',
-    topology: {
-      figLabel: 'fig.01 — system topology',
-      version: 'v3 · revamp',
-      height: 340,
-      axisX: 'request lifecycle →',
-      axisY: 'layer depth →',
-      nodes: [
-        { id: 'browser',   label: 'Browser',    sub: 'end user',         top: 60,  left: 40  },
-        { id: 'nextapp',   label: 'Next.js',    sub: 'revamped ui',      top: 60,  left: 200, accent: true },
-        { id: 'cmsapi',    label: 'CMS API',    sub: 'content layer',    top: 60,  left: 380 },
-        { id: 'contentdb', label: 'Content DB', sub: 'structured data',  top: 60,  left: 560 },
-        { id: 'imgcdn',    label: 'Image CDN',  sub: 'media · assets',   top: 200, left: 200 },
-        { id: 'seo',       label: 'SEO Layer',  sub: 'meta · sitemap',   top: 200, left: 380 },
-      ],
-      edges: [
-        { from: 'browser', to: 'nextapp'   },
-        { from: 'nextapp', to: 'cmsapi'    },
-        { from: 'cmsapi',  to: 'contentdb' },
-        { from: 'nextapp', to: 'imgcdn'    },
-        { from: 'nextapp', to: 'seo'       },
-      ],
-      stack: ['Next.js', 'Tailwind CSS', 'Django REST Framework', 'CMS API', 'REST API', 'Image CDN'],
-      stats: [
-        { label: 'Role',  value: 'Full-Stack' },
-        { label: 'Year',  value: '2025' },
-        { label: 'Type',  value: 'Revamp' },
-        { label: 'Nodes', value: '6' },
-      ],
-    },
-  },
-
-  'quanta': {
-    title: 'Quanta',
-    tagline: 'A data dashboard that connects to multiple databases and auto-generates charts from queries or AI prompts.',
-    year: '2026',
-    role: 'Full-Stack Contributor',
-    url: 'https://quanta.arithmiks.com/',
-    urlLabel: 'Live demo →',
-    cover: '/images/quanta.png',
-    stack: ['React', 'FastAPI', 'Gemini / Anthropic', 'PostgreSQL', 'MongoDB', 'REST API'],
-    problem: 'Engineers and analysts needed a single interface to query multiple database types and visualise data without manual chart setup.',
-    roleDesc: 'Significant UI/UX improvements across the dashboard for data readability and usability. Contributed to some backend assistance.',
-    stackDesc: 'React · FastAPI · Gemini / Anthropic · PostgreSQL · MongoDB',
-    topology: {
-      figLabel: 'fig.01 — system topology',
-      version: 'v2 · live',
-      height: 380,
-      axisX: 'request lifecycle →',
-      axisY: 'complexity →',
-      nodes: [
-        { id: 'browser',  label: 'Browser',      sub: 'analyst · engineer', top: 60,  left: 40  },
-        { id: 'dashboard',label: 'Dashboard',    sub: 'react · charts',     top: 60,  left: 200, accent: true },
-        { id: 'query',    label: 'Query Engine', sub: 'routing · exec',     top: 60,  left: 380, accent: true },
-        { id: 'database', label: 'Database',     sub: 'pg · mongo · mysql', top: 60,  left: 560 },
-        { id: 'ailayer',  label: 'AI Layer',     sub: 'nl → sql',           top: 210, left: 380, accent: true },
-        { id: 'Gemini /  Anthropic',   label: 'Gemini / Anthropic',   sub: 'gpt · embeddings',   top: 210, left: 560 },
-      ],
-      edges: [
-        { from: 'browser',   to: 'dashboard' },
-        { from: 'dashboard', to: 'query'     },
-        { from: 'query',     to: 'database'  },
-        { from: 'query',     to: 'ailayer'   },
-        { from: 'ailayer',   to: 'Gemini / Anthropic'    },
-      ],
-      stack: ['React', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Gemini', 'Anthropic'],
-      stats: [
-        { label: 'Role',  value: 'Full-Stack' },
-        { label: 'Year',  value: '2026' },
-        { label: 'Type',  value: 'Live' },
-        { label: 'Nodes', value: '6' },
-      ],
-    },
-  },
-
-  'wecare': {
-    title: 'WeCare',
-    tagline: 'Final Year Project — a full-featured MERN stack catering and event management system.',
-    year: '2024',
-    role: 'Full-Stack Developer',
-    url: 'https://github.com/perhaps-ali/WeCare-Online-Catering-Reservation-System-',
-    urlLabel: 'GitHub →',
-    cover: '/images/weCare.png',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT'],
-    problem: 'Event organisers and catering businesses had no unified system to manage bookings, menus, and event coordination digitally.',
-    roleDesc: 'Built the complete MERN stack application — React frontend, Express REST API, MongoDB data layer, auth, order management, and event coordination flows.',
-    stackDesc: 'React · Express · Node.js · MongoDB · Mongoose · JWT',
-    topology: {
-      figLabel: 'fig.01 — system topology',
-      version: 'v1 · fyp',
-      height: 420,
-      axisX: 'request lifecycle →',
-      axisY: 'complexity →',
-      nodes: [
-        { id: 'browser',  label: 'Browser',      sub: 'customer · admin',   top: 60,  left: 40  },
-        { id: 'react',    label: 'React SPA',    sub: 'booking · menu ui',  top: 60,  left: 200, accent: true },
-        { id: 'express',  label: 'Express API',  sub: 'rest · auth routes', top: 60,  left: 380, accent: true },
-        { id: 'mongo',    label: 'MongoDB',      sub: 'mongoose · atlas',   top: 60,  left: 560 },
-        { id: 'auth',     label: 'Auth Module',  sub: 'jwt · bcrypt',       top: 200, left: 200 },
-        { id: 'events',   label: 'Event Engine', sub: 'reservations · menu',top: 200, left: 380 },
-        { id: 'payment',  label: 'Payment GW',   sub: 'order checkout',     top: 340, left: 380 },
-      ],
-      edges: [
-        { from: 'browser', to: 'react'   },
-        { from: 'react',   to: 'express' },
-        { from: 'express', to: 'mongo'   },
-        { from: 'react',   to: 'auth'    },
-        { from: 'express', to: 'events'  },
-        { from: 'events',  to: 'payment' },
-      ],
-      stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT'],
-      stats: [
-        { label: 'Role',  value: 'Full-Stack' },
-        { label: 'Year',  value: '2024' },
-        { label: 'Type',  value: 'FYP' },
-        { label: 'Nodes', value: '7' },
-      ],
-    },
-  },
-
-}
-
-const slugOrder = ['sba-loans', 'swerv', 'nicgs', 'quanta', 'wecare']
+import { projects, getProject } from '@/lib/projects'
 
 export async function generateStaticParams() {
-  return slugOrder.map((slug) => ({ slug }))
+  return projects.map(({ slug }) => ({ slug }))
 }
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const project = projects[slug] ?? projects['sba-loans']
-  const idx = slugOrder.indexOf(slug)
-  const prevSlug = idx > 0 ? slugOrder[idx - 1] : null
-  const nextSlug = idx < slugOrder.length - 1 ? slugOrder[idx + 1] : null
+  const project = getProject(slug)
+  if (!project) notFound()
+
+  const idx = projects.indexOf(project)
+  const prevProject = idx > 0 ? projects[idx - 1] : null
+  const nextProject = idx < projects.length - 1 ? projects[idx + 1] : null
 
   return (
     <div>
@@ -292,13 +63,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <span className="ml-auto">{slug}.muhammadali.dev</span>
           </div>
           <div className="flex-1 border border-line overflow-hidden">
-            {project.cover ? (
-              <Image src={project.cover} alt={project.title} width={1200} height={480} quality={100} className="w-full h-full object-cover object-top" />
-            ) : (
-              <div className="w-full h-full bg-bg flex items-center justify-center text-ink-mute font-mono text-[11px]">
-                [ cover image ]
-              </div>
-            )}
+            <Image src={project.cover} alt={project.title} width={1200} height={480} quality={100} className="w-full h-full object-cover object-top" />
           </div>
         </div>
       </section>
@@ -344,21 +109,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* Prev / Next */}
       <div className="flex justify-between items-center px-5 md:px-8 py-12 md:py-[60px] border-t border-line">
-        {prevSlug ? (
-          <Link href={`/work/${prevSlug}`} className="text-ink">
+        {prevProject ? (
+          <Link href={`/work/${prevProject.slug}`} className="text-ink">
             <small className="text-10 tracking-018 uppercase text-ink-mute block mb-[6px]">← prev</small>
             <span className="font-display italic text-24 md:text-32">
-              {projects[prevSlug]?.title}
+              {prevProject.title}
             </span>
           </Link>
         ) : (
           <div />
         )}
-        {nextSlug ? (
-          <Link href={`/work/${nextSlug}`} className="text-ink text-right">
+        {nextProject ? (
+          <Link href={`/work/${nextProject.slug}`} className="text-ink text-right">
             <small className="text-10 tracking-018 uppercase text-ink-mute block mb-[6px]">next →</small>
             <span className="font-display italic text-24 md:text-32">
-              {projects[nextSlug]?.title}
+              {nextProject.title}
             </span>
           </Link>
         ) : (

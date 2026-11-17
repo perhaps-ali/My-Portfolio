@@ -2,60 +2,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { projects } from '@/lib/projects'
 
-const projects = [
-  {
-    slug: 'sba-loans',
-    title: 'SBA Loans',
-    year: '2025–2026',
-    idx: '01',
-    role: 'Full-Stack',
-    desc: 'Full-stack SBA loan workflow platform — application flows, partner dashboard, document management, and Django REST API.',
-    stack: ['Next.js', 'Django', 'Tailwind'],
-    cover: '/images/loanbridge.png',
-    featured: true,
-  },
-  {
-    slug: 'swerv',
-    title: 'Swerv',
-    year: '2025',
-    idx: '02',
-    role: 'Full-Stack',
-    desc: 'UI elevation and interface consistency for an automotive product, backed by Django REST API work — component design, usability, look & feel.',
-    stack: ['Next.js', 'Django', 'Tailwind'],
-    cover: '/images/autocore-dashboard.png',
-  },
-  {
-    slug: 'nicgs',
-    title: 'NICGS',
-    year: '2025',
-    idx: '03',
-    role: 'Full-Stack',
-    desc: 'Complete frontend overhaul with Django REST/CMS API work — rebuilt from scratch, modernised design language, restructured navigation.',
-    stack: ['Next.js', 'Django', 'Tailwind'],
-    cover: '/images/noor-cart.png',
-  },
-  {
-    slug: 'quanta',
-    title: 'Quanta',
-    year: '2026',
-    idx: '04',
-    role: 'Full-Stack',
-    desc: 'Data dashboard connecting multiple databases and auto-generating charts from queries or AI prompts.',
-    stack: ['Next.js', 'FastAPI', 'AI'],
-    cover: '/images/quanta.png',
-  },
-  {
-    slug: 'wecare',
-    title: 'WeCare',
-    year: '2024',
-    idx: '05',
-    role: 'Full-Stack',
-    desc: 'MERN stack catering & event management — reservations, menu management, and ordering.',
-    stack: ['React', 'FastAPI', 'MongoDB'],
-    cover: '/images/weCare.png',
-  },
-]
+const INDEX_DIGITS = 2
+
+function formatIndex(value: number) {
+  return String(value).padStart(INDEX_DIGITS, '0')
+}
 
 export default function ProjectGrid() {
   return (
@@ -93,20 +46,20 @@ export default function ProjectGrid() {
             {/* Content */}
             <div className="min-w-0">
               <div className="flex items-center gap-3 mb-[6px] flex-wrap">
-                <span className="font-mono text-[10px] tracking-[0.14em] text-ink-mute">{p.idx} / 05</span>
+                <span className="font-mono text-[10px] tracking-[0.14em] text-ink-mute">{formatIndex(i + 1)} / {formatIndex(projects.length)}</span>
                 <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-accent">{p.role}</span>
                 <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-ink-mute">{p.year}</span>
               </div>
               <h4 className="font-display italic text-24 md:text-26 text-ink leading-none mb-[6px] group-hover:text-accent transition-colors duration-200">
                 {p.title}
               </h4>
-              <p className="font-mono text-[11px] text-ink-mute leading-[1.6] max-w-[560px]">{p.desc}</p>
+              <p className="font-mono text-[11px] text-ink-mute leading-[1.6] max-w-[560px]">{p.summary}</p>
             </div>
 
             {/* Stack + view */}
             <div className="flex md:flex-col items-start md:items-end gap-2 md:gap-3 shrink-0 w-full md:w-auto">
               <div className="flex gap-[5px] flex-wrap md:justify-end">
-                {p.stack.map((s) => (
+                {p.cardStack.map((s) => (
                   <span key={s} className="font-mono text-[9px] border border-line px-[6px] py-[3px] text-ink-mute">
                     {s}
                   </span>

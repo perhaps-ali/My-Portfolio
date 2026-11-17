@@ -3,15 +3,15 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, X } from 'lucide-react'
+import { projects } from '@/lib/projects'
 
 const ALL_ITEMS = [
-  // Projects
-  { type: 'Project', title: 'SBA Loans', href: '/work/sba-loans', desc: 'Complete frontend for an SBA loan workflow platform.' },
-  { type: 'Project', title: 'Swerv',     href: '/work/swerv',     desc: 'UI elevation and interface consistency for an automotive product.' },
-  { type: 'Project', title: 'NICGS',     href: '/work/nicgs',     desc: 'Complete frontend overhaul — rebuilt from scratch, responsive.' },
-  { type: 'Project', title: 'Quanta',    href: '/work/quanta',    desc: 'Data dashboard — multi-DB, AI-generated charts, full-stack.' },
-  { type: 'Project', title: 'WeCare',    href: '/work/wecare',    desc: 'MERN stack catering & event management system (FYP).' },
-  // Pages
+  ...projects.map((project) => ({
+    type: 'Project',
+    title: project.title,
+    href: `/work/${project.slug}`,
+    desc: project.tagline,
+  })),
   { type: 'Page', title: 'About', href: '/about', desc: 'Who I am and how I work.' },
   { type: 'Page', title: 'Work',  href: '/work',  desc: 'All projects.' },
 ]

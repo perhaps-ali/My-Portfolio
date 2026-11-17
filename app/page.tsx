@@ -6,6 +6,7 @@ import SchematicStrip from '@/components/SchematicStrip'
 import ProjectGrid from '@/components/ProjectGrid'
 import HorizontalTimeline from '@/components/HorizontalTimeline'
 import Footer from '@/components/Footer'
+import { projects } from '@/lib/projects'
 
 const statusFields = [
   { key: 'status',    val: 'available',              highlight: true },
@@ -253,7 +254,7 @@ export default function Home() {
 
       {/* ── Projects ── */}
       <section className="px-5 md:px-8 py-14 md:py-20 border-t border-line">
-        <SectionHeader label="work" title="Selected projects." meta="5 total" />
+        <SectionHeader label="work" title="Selected projects." meta={`${projects.length} total`} />
         <ProjectGrid />
       </section>
 

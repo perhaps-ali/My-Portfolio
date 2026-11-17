@@ -2,14 +2,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import Footer from '@/components/Footer'
-
-const allProjects = [
-  { slug: 'sba-loans', title: 'SBA Loans',  year: '2025–26', role: 'Full-Stack',            type: 'Production', desc: 'Full-stack SBA loan workflow platform — application flows, partner dashboard, document management, and Django REST API.' },
-  { slug: 'swerv',     title: 'Swerv',      year: '2025',    role: 'Full-Stack',            type: 'Internal',   desc: 'UI elevation and interface consistency for an automotive product, backed by Django REST API work.' },
-  { slug: 'nicgs',     title: 'NICGS',      year: '2025',    role: 'Full-Stack',            type: 'Revamp',     desc: 'Complete frontend overhaul with Django REST/CMS API work — rebuilt from scratch, modernised design language.' },
-  { slug: 'quanta',    title: 'Quanta',     year: '2026', role: 'Full-Stack',            type: 'Live',       desc: 'Data dashboard connecting multiple databases and auto-generating charts via queries or AI prompts.' },
-  { slug: 'wecare',    title: 'WeCare',     year: '2024', role: 'Full-Stack',            type: 'FYP',        desc: 'MERN stack catering and event management — reservations, menu management, and ordering.' },
-]
+import { projects } from '@/lib/projects'
 
 export default function WorkPage() {
   return (
@@ -37,7 +30,7 @@ export default function WorkPage() {
             ))}
           </div>
 
-          {allProjects.map((p, i) => (
+          {projects.map((p, i) => (
             <motion.div
               key={p.slug}
               initial={{ opacity: 0, y: 4 }}
@@ -66,7 +59,7 @@ export default function WorkPage() {
                     </span>
                     <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-accent">{p.role}</span>
                   </div>
-                  <p className="font-mono text-[11px] text-ink-mute leading-[1.6] mb-3">{p.desc}</p>
+                  <p className="font-mono text-[11px] text-ink-mute leading-[1.6] mb-3">{p.summary}</p>
                   {/* Year + type badges — mobile only */}
                   <div className="flex gap-[6px] md:hidden">
                     <span className="font-mono text-[9px] tracking-[0.1em] px-2 py-[3px] border border-line text-accent">
