@@ -5,7 +5,7 @@ import TechOrbit from './TechOrbit'
 
 const contacts = [
   { label: 'email',    value: 'muhammaddali908@gmail.com', href: 'mailto:muhammaddali908@gmail.com' },
-  { label: 'phone',    value: '(+92) 03238890511',          href: 'tel:+923238890511' },
+  { label: 'phone',    value: '(+92) 3238890511',          href: 'tel:+923238890511' },
   { label: 'linkedin', value: 'linkedin.com/in/muhammad-ali908', href: 'https://linkedin.com/in/muhammad-ali908' },
   { label: 'github',   value: 'github.com/perhaps-ali',    href: 'https://github.com/perhaps-ali' },
 ]
